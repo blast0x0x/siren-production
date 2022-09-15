@@ -8,8 +8,7 @@
     "server": "nodemon index.js",
     "client": "npm start --prefix client",
     "deploy": "cross-env NODE_ENV=production node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "heroku-postbuild": "npm run build"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
     "Siren"
