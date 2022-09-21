@@ -22,6 +22,32 @@ import { createBudgetLine } from '../actions/budgetline'
 
 const theme = createTheme();
 
+const currencies = [
+  {
+    value: 'DKK',
+    label: 'DKK'
+  },
+  {
+    value: 'EUR',
+    label: 'EUR',
+  },
+  {
+    value: 'GBP',
+    label: 'GBP',
+  },
+  {
+    value: 'JOD',
+    label: 'JOD',
+  },
+  {
+    value: 'LBP',
+    label: 'LBP',
+  },
+  {
+    value: 'USD',
+    label: 'USD',
+  }
+];
 
 export default function BudgetLineCreate() {
   const [programmeId, setProgrammeId] = React.useState()
@@ -112,7 +138,14 @@ export default function BudgetLineCreate() {
                     id="currency"
                     label="Currency"
                     value={programmeId !== undefined ? programmes[programmeId].currency : ""}
-                  />
+                    select
+                  >
+                    {currencies.map((option) => (
+                      <MenuItem key={option.value} value={option.value}>
+                        {option.label}
+                      </MenuItem>
+                    ))}
+                  </TextField>
                 </Grid>
                 <Grid item xs={12}>
                   <TextField

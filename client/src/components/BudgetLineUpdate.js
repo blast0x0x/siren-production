@@ -23,6 +23,33 @@ import { getProgrammes } from '../actions/programme';
 
 const theme = createTheme();
 
+const currencies = [
+  {
+    value: 'DKK',
+    label: 'DKK'
+  },
+  {
+    value: 'EUR',
+    label: 'EUR',
+  },
+  {
+    value: 'GBP',
+    label: 'GBP',
+  },
+  {
+    value: 'JOD',
+    label: 'JOD',
+  },
+  {
+    value: 'LBP',
+    label: 'LBP',
+  },
+  {
+    value: 'USD',
+    label: 'USD',
+  }
+];
+
 export default function BudgetLineUpdate() {
   const { id } = useParams();
   const { budgetline } = useSelector(state => state.budgetline);
@@ -70,6 +97,7 @@ export default function BudgetLineUpdate() {
   // }, [isAuthenticated, navigate])
 
   useEffect(() => {
+    dispatch(getProgrammes());
     dispatch(getBudgetLine(id));
   }, [dispatch, id]);
 
@@ -131,7 +159,14 @@ export default function BudgetLineUpdate() {
                     label="Currency"
                     value={currency}
                     onChange={setC}
-                  />
+                    select
+                  >
+                    {currencies.map((option) => (
+                      <MenuItem key={option.value} value={option.value}>
+                        {option.label}
+                      </MenuItem>
+                    ))}
+                  </TextField>
                 </Grid>
                 <Grid item xs={12}>
                   <TextField
