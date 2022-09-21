@@ -93,7 +93,7 @@ export default function UserUpdate() {
     const job = data.get('job');
     const contractNo = data.get('contractNo');
     const email = data.get('email');
-    dispatch(updateUser({ firstName, lastName, birth, address, phone, email, job, contractNo }, navigate));
+    dispatch(updateUser({ id, firstName, lastName, birth, address, phone, email, job, contractNo }, navigate));
   };
 
   // useEffect(() => {

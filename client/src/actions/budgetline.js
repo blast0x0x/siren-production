@@ -61,7 +61,6 @@ export const createBudgetLine = (formData, navigate) => async (dispatch) => {
 export const updateBudgetLine = (formData, navigate) => async (dispatch) => {
   try {
     const res = await api.post('/budgetlines/update', formData);
-    console.log(res.data);
     dispatch(setAlert('Successfully updated', 'success'));
     navigate('/budgetlines');
   } catch (err) {

@@ -12,7 +12,6 @@ router.get('/:id',
     const programme = await Programme.findOne({ _id: id });
     res.json(programme);
   } catch (err) {
-    console.error(err.message);
     res.status(500).send('Server Error');
   }
 });
@@ -23,7 +22,6 @@ router.get('/', async (req, res) => {
     const programmes = await Programme.find();
     res.json(programmes);
   } catch (err) {
-    console.error(err.message);
     res.status(500).send('Server Error');
   }
 });
@@ -45,7 +43,6 @@ router.post(
       return res.status(400).json({ errors: errors.array() });
     }
 
-    console.log("eagle: req.body", req.body);
     const { name, acronym, donor, totalBudget, currency, startDate, duration, manager } = req.body;
 
     try {
@@ -71,7 +68,6 @@ router.post(
       await programme.save();
       res.send(programme);
     } catch (err) {
-      console.error(err.message);
       res.status(500).send('Server error');
     }
   }
@@ -93,10 +89,10 @@ router.post(
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const { name, acronym, donor, totalBudget, currency, startDate, duration, manager } = req.body;
+    const { id, name, acronym, donor, totalBudget, currency, startDate, duration, manager } = req.body;
 
     try {
-      let programme = await Programme.findOne({ name });
+      let programme = await Programme.findOne({ _id: id });
 
       if (!programme) {
         return res
@@ -115,7 +111,6 @@ router.post(
       await programme.save();
       res.json({ programme });
     } catch (err) {
-      console.error(err.message);
       res.status(500).send('Server error');
     }
   }
@@ -129,7 +124,6 @@ router.post(
       const programmes = await Programme.find();
       res.json(programmes);
     } catch (err) {
-      console.error(err.message);
       res.status(500).send('Server error');
     }
   }

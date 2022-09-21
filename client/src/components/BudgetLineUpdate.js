@@ -56,7 +56,7 @@ export default function BudgetLineUpdate() {
     const name = data.get('name');
     const currency = data.get('currency');
     const initialAmount = data.get('initialAmount');
-    dispatch(updateBudgetLine({ programme, name, currency, initialAmount }, navigate));
+    dispatch(updateBudgetLine({ id, programme, name, currency, initialAmount }, navigate));
   };
 
   useEffect(() => {

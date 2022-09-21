@@ -80,10 +80,10 @@ router.post(
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const { programme, name, currency, initialAmount } = req.body;
+    const { id, programme, name, currency, initialAmount } = req.body;
 
     try {
-      let budgetline = await BudgetLine.findOne({ name });
+      let budgetline = await BudgetLine.findOne({ id });
 
       if (!budgetline) {
         return res

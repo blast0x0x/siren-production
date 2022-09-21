@@ -131,10 +131,10 @@ router.post(
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const { firstName, lastName, birth, address, phone, email, job, contractNo } = req.body;
+    const { id, firstName, lastName, birth, address, phone, email, job, contractNo } = req.body;
 
     try {
-      let user = await User.findOne({ email });
+      let user = await User.findOne({ id });
 
       if (!user) {
         return res
@@ -147,6 +147,7 @@ router.post(
       user.birth = birth;
       user.address = address;
       user.phone = phone;
+      user.email = email;
       user.job = job;
       user.contractNo = contractNo;
       await user.save();

@@ -53,7 +53,6 @@ export const register = (formData) => async (dispatch) => {
 export const createUser = (formData, navigate) => async (dispatch) => {
   try {
     const res = await api.post('/users', formData);
-    console.log(res.data);
     dispatch(setAlert('Successfully created', 'success'));
     navigate('/users');
   } catch (err) {
@@ -68,7 +67,6 @@ export const createUser = (formData, navigate) => async (dispatch) => {
 export const updateUser = (formData, navigate) => async (dispatch) => {
   try {
     const res = await api.post('/users/update', formData);
-    console.log(res.data);
     dispatch(setAlert('Successfully updated', 'success'));
     navigate('/users');
   } catch (err) {
@@ -83,7 +81,6 @@ export const updateUser = (formData, navigate) => async (dispatch) => {
 export const changePassword = (formData, navigate) => async (dispatch) => {
   try {
     const res = await api.post('/users/changePassword', formData);
-    console.log(res.data);
     dispatch(setAlert('Successfully changed', 'success'))
     navigate('/dashboard');
   } catch (err) {
@@ -120,7 +117,6 @@ export const login = (email, password) => async (dispatch) => {
 export const checkFirst = () => async (dispatch) => {
   try {
     await api.post('/users/checkFirst');
-    // console.log('isFirstLogin->false', res.data);
     dispatch(loadUser());
     dispatch(setAlert('Please change password', 'warning', 10000));
   } catch (err) {

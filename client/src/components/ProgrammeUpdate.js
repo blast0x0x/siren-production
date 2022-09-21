@@ -95,7 +95,7 @@ export default function ProgrammeUpdate() {
     const startDate = value;
     const duration = parseInt(data.get('duration'));
     const manager = data.get('manager');
-    dispatch(updateProgramme({ name, acronym, donor, totalBudget, currency, startDate, duration, manager }, navigate));
+    dispatch(updateProgramme({ id, name, acronym, donor, totalBudget, currency, startDate, duration, manager }, navigate));
   };
 
   // useEffect(() => {
