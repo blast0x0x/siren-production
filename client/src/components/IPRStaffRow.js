@@ -60,7 +60,7 @@ export default function IPRStaffRow(props) {
         {row.approvalState === 2 ? (<TableCell align="center" sx={{ color: '#65C466' }}>Approved</TableCell>) : row.approvalState === 1 ? (<TableCell align="center" sx={{ color: '#9fa18c' }}>Declined</TableCell>) : (<TableCell align="center" sx={{ color: '#c55615' }}>Pending</TableCell>)}
         <TableCell align="center">{row.programme.name}</TableCell>
         <TableCell align="center">{row.output.name}</TableCell>
-        <TableCell align="center">{row.output.activities.filter((activity) => activity._id.toString() === row.activity.toString())[0].activityName}</TableCell>
+        {/* <TableCell align="center">{row.output.activities.filter((activity) => activity._id.toString() === row.activity.toString())[0].activityName}</TableCell> */}
         <TableCell align="center">{row.budgetline.name}</TableCell>
         <TableCell align="center">{stages[row.approvalStage]}</TableCell>
         <TableCell align="center">{row.notes}</TableCell>

@@ -276,7 +276,7 @@ export default function IprCreate() {
                     ))}
                   </TextField>
                 </Grid>
-                <Grid item xs={12} sm={3}>
+                {/* <Grid item xs={12} sm={3}>
                   <TextField
                     required
                     fullWidth
@@ -293,7 +293,7 @@ export default function IprCreate() {
                       </MenuItem>
                     ))}
                   </TextField>
-                </Grid>
+                </Grid> */}
                 <Grid item xs={12} sm={3}>
                   <TextField
                     required

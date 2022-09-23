@@ -189,7 +189,7 @@ export default function Dashboard() {
                         <TableCell align="center"><b>Status</b></TableCell>
                         <TableCell align="center"><b>Programme</b></TableCell>
                         <TableCell align="center"><b>Output</b></TableCell>
-                        <TableCell align="center"><b>Activity</b></TableCell>
+                        {/* <TableCell align="center"><b>Activity</b></TableCell> */}
                         <TableCell align="center"><b>Budtet Line</b></TableCell>
                         <TableCell align="center"><b>Stage</b></TableCell>
                         <TableCell align="center"><b>Notes</b></TableCell>
@@ -260,7 +260,7 @@ export default function Dashboard() {
                         <TableCell align="center"><b>Due Date</b></TableCell>
                         <TableCell align="center"><b>Programme</b></TableCell>
                         <TableCell align="center"><b>Output</b></TableCell>
-                        <TableCell align="center"><b>Activity</b></TableCell>
+                        {/* <TableCell align="center"><b>Activity</b></TableCell> */}
                         <TableCell align="center"><b>Budtet Line</b></TableCell>
                         <TableCell align="center"><b>Allocation Date</b></TableCell>
                         <TableCell align="center"><b>Allocate</b></TableCell>
@@ -441,7 +441,7 @@ export default function Dashboard() {
                         <TableCell align="center"><b>Approval Date</b></TableCell>
                         <TableCell align="center"><b>Programme</b></TableCell>
                         <TableCell align="center"><b>Output</b></TableCell>
-                        <TableCell align="center"><b>Activity</b></TableCell>
+                        {/* <TableCell align="center"><b>Activity</b></TableCell> */}
                         <TableCell align="center"><b>Budtet Line</b></TableCell>
                         <TableCell align="center"><b>Decision</b></TableCell>
                         <TableCell align="center"><b>Status</b></TableCell>
@@ -499,7 +499,7 @@ export default function Dashboard() {
                         <TableCell align="center"><b>Due Date</b></TableCell>
                         <TableCell align="center"><b>Programme</b></TableCell>
                         <TableCell align="center"><b>Output</b></TableCell>
-                        <TableCell align="center"><b>Activity</b></TableCell>
+                        {/* <TableCell align="center"><b>Activity</b></TableCell> */}
                         <TableCell align="center"><b>Budtet Line</b></TableCell>
                         <TableCell align="center"><b>RFQ Issuance Date</b></TableCell>
                         {/* <TableCell align="center"><b>RFQ End Date</b></TableCell> */}
@@ -548,7 +548,7 @@ export default function Dashboard() {
                         <TableCell align="center"><b>Approval Date</b></TableCell>
                         <TableCell align="center"><b>Programme</b></TableCell>
                         <TableCell align="center"><b>Output</b></TableCell>
-                        <TableCell align="center"><b>Activity</b></TableCell>
+                        {/* <TableCell align="center"><b>Activity</b></TableCell> */}
                         <TableCell align="center"><b>Budtet Line</b></TableCell>
                         <TableCell align="center"><b>Stage</b></TableCell>
                         <TableCell align="center"><b>Approve</b></TableCell>

@@ -50,7 +50,7 @@ router.post(
   check('dueDate', 'Due Date is required').notEmpty(),
   check('programme', 'Programme is required').notEmpty(),
   check('output', 'Output is required').notEmpty(),
-  check('activity', 'Activity is required').notEmpty(),
+  // check('activity', 'Activity is required').notEmpty(),
   check('budgetline', 'Budgetline is required').notEmpty(),
   async (req, res) => {
     const errors = validationResult(req);
