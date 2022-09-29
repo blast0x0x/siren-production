@@ -41,8 +41,8 @@ import {
 
 const theme = createTheme();
 
-function createData(itemDescription, requestedBy, output, qty, estimatedUnitPrice, totalPrice, remarks) {
-  return { itemDescription, requestedBy, output, qty, estimatedUnitPrice, totalPrice, remarks };
+function createData(itemDescription, requestedBy, /* output, */ qty, estimatedUnitPrice, totalPrice, remarks) {
+  return { itemDescription, requestedBy, /* output, */ qty, estimatedUnitPrice, totalPrice, remarks };
 }
 
 let rows = [];
@@ -130,7 +130,7 @@ export default function IprEdit() {
 
   const getTotal = (items) => {
     let total = 0;
-    items.map((item) => total += parseInt(item.totalPrice));
+    items.map((item) => total += parseFloat(item.totalPrice));
     return total;
   }
 
@@ -198,11 +198,12 @@ export default function IprEdit() {
     const requestedBy = ipr.requestedBy;
     const qty = iQ;
     const estimatedUnitPrice = iE;
-    const totalPrice = parseInt(iQ) * parseInt(iE);
+    const totalPrice = parseFloat(iQ) * parseFloat(iE);
     const remarks = iR;
     if (itemDescription === '' || itemDescription === null) return dispatch(setAlert('Item Description is required', 'error'));
     if (qty === '' || qty === null) return dispatch(setAlert('Qty is required', 'error'));
     if (estimatedUnitPrice === '' || estimatedUnitPrice === null) return dispatch(setAlert('Estimated Unit Price is required', 'error'));
+
     rows[editNo] = createData(itemDescription, requestedBy, qty, estimatedUnitPrice, totalPrice, remarks);
     total = getTotal(rows);
     setOpen(false);

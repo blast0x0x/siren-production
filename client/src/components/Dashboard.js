@@ -75,7 +75,7 @@ export default function Dashboard() {
   const usersToShow = usersToShowTotal.slice(maxrow * (usersPage - 1), maxrow * usersPage);
   const usersTotalShow = usersToShowTotal.length;
   const usersPages = Math.ceil(usersTotalShow / maxrow);
-  const iprsForSupport = iprs.filter((ipr) => ipr.approvalStage > 0);
+  const iprsForSupport = iprs.filter((ipr) => ipr.approvalStage >= 0);
   const supportTotal = iprsForSupport?.length;
   const supportPages = Math.ceil(supportTotal / maxrow);
   const iprsSupportToShow = iprsForSupport.slice(maxrow * (supportPage - 1), maxrow * supportPage);

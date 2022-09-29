@@ -157,23 +157,23 @@ export default function IprCreate() {
   const calcTotalByQty = (event) => {
     event.preventDefault();
     if (event.target.value !== null && event.target.value !== '') {
-      setQuantity(parseInt(event.target.value));
+      setQuantity(parseFloat(event.target.value));
     } else {
       setUnitTotal('');
     }
     if (event.target.value !== null && event.target.value !== '' &&
-      unitPrice !== null && unitPrice !== '') setUnitTotal(parseInt(event.target.value) * unitPrice);
+      unitPrice !== null && unitPrice !== '') setUnitTotal(parseFloat(event.target.value) * unitPrice);
   }
 
   const calcTotalByUnitPrice = (event) => {
     event.preventDefault();
     if (event.target.value !== null && event.target.value !== '') {
-      setUnitPrice(parseInt(event.target.value));
+      setUnitPrice(parseFloat(event.target.value));
     } else {
       setUnitTotal('');
     }
     if (event.target.value !== null && event.target.value !== '' &&
-      quantity !== null && quantity !== '') setUnitTotal(parseInt(event.target.value) * quantity);
+      quantity !== null && quantity !== '') setUnitTotal(parseFloat(event.target.value) * quantity);
   }
 
   useEffect(() => {

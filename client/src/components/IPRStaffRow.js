@@ -28,7 +28,7 @@ export default function IPRStaffRow(props) {
 
   const total = (items) => {
     let total = 0;
-    items.map((item) => total += parseInt(item.totalPrice));
+    items.map((item) => total += parseFloat(item.totalPrice));
     return total;
   }
 
