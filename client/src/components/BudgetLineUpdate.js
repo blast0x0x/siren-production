@@ -52,6 +52,7 @@ const currencies = [
 
 export default function BudgetLineUpdate() {
   const { id } = useParams();
+  const [programmeId, setProgrammeId] = React.useState()
   const { budgetline } = useSelector(state => state.budgetline);
   const { programmes } = useSelector(state => state.programme);
   const programmeOptions = programmes?.map((option) => ({
@@ -86,9 +87,9 @@ export default function BudgetLineUpdate() {
     dispatch(updateBudgetLine({ id, programme, name, currency, initialAmount }, navigate));
   };
 
-  useEffect(() => {
-    dispatch(getProgrammes());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(getProgrammes());
+  // }, [dispatch]);
 
   // useEffect(() => {
   //   if (isAuthenticated) {
@@ -99,7 +100,11 @@ export default function BudgetLineUpdate() {
   useEffect(() => {
     dispatch(getProgrammes());
     dispatch(getBudgetLine(id));
-  }, [dispatch, id]);
+  }, [dispatch, id, programmeId]);
+
+  const handleProgrammeItem = async (index) => {
+    setProgrammeId(index)
+  };
 
   return (
     <ThemeProvider theme={theme}>
@@ -130,8 +135,8 @@ export default function BudgetLineUpdate() {
                     value={programme}
                     onChange={setP}
                   >
-                    {programmeOptions.map((option) => (
-                      <MenuItem key={option.value} value={option.value}>
+                    {programmeOptions.map((option, index) => (
+                      <MenuItem key={option.value} value={option.value} onClick={() => handleProgrammeItem(index)}>
                         {option.label}
                       </MenuItem>
                     ))}
@@ -157,7 +162,7 @@ export default function BudgetLineUpdate() {
                     fullWidth
                     id="currency"
                     label="Currency"
-                    value={currency}
+                    value={programmeId !== undefined ? programmes[programmeId].currency : currency}
                     onChange={setC}
                     select
                   >

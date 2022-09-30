@@ -44,9 +44,7 @@ export const getBudgetLines = () => async (dispatch) => {
 
 export const createBudgetLine = (formData, navigate) => async (dispatch) => {
   try {
-    console.log("eagle", formData);
     const res = await api.post('/budgetlines', formData);
-    console.log(res.data);
     dispatch(setAlert('Successfully created', 'success'));
     navigate('/budgetlines');
   } catch (err) {

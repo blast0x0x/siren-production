@@ -46,7 +46,7 @@ router.post(
     try {
       let budgetline = await BudgetLine.findOne({ name });
 
-      if (budgetline) {
+      if (budgetline && budgetline.programme == programme) {
         return res
           .status(400)
           .json({ errors: [{ msg: 'BudgetLine already exists' }] });
