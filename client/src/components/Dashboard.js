@@ -71,7 +71,7 @@ export default function Dashboard() {
   // const usersToShowTotal = users?.filter((user) => user.approvalState !== 2);
   const usersToShowTotal = users.filter(
     (user) => user.approvalState === 0
-  );;
+  );
   const usersToShow = usersToShowTotal.slice(maxrow * (usersPage - 1), maxrow * usersPage);
   const usersTotalShow = usersToShowTotal.length;
   const usersPages = Math.ceil(usersTotalShow / maxrow);

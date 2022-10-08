@@ -16,13 +16,17 @@ import {
   TableBody,
   Pagination,
   Paper,
-  Button
+  Button,
+  Grid,
+  TextField,
+  MenuItem
 } from '@mui/material'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
 import Spinner from './Spinner';
+import { getProgrammes } from '../actions/programme';
 import { getBudgetLines, getBudgetLine, deleteBudgetLineById } from '../actions/budgetline';
 
 const theme = createTheme();
@@ -31,12 +35,33 @@ export default function BudgetLines() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user } = useSelector(state => state.auth);
+  const { programmes } = useSelector(state => state.programme);
+  
   const [budgetlinesPage, setBudgetLinesPage] = React.useState(1);
   const { budgetlines, budgetlineloading } = useSelector(state => state.budgetline);
 
+  console.log("eagle:programmes=", programmes);
+
+  const programmeNameMenu = [];
+  programmeNameMenu.push("All Programmes");
+  for (let i = 0; i < programmes.length; i ++)
+    programmeNameMenu.push(programmes[i].acronym);
+  const [programmeMenuItemNum, setProgrammeMenuItemNum] = React.useState(0);
+  const [programmeId, setProgrammeId] = React.useState(0);
+
   const maxrow = 10;
-  const budgetlinesToShow = budgetlines?.slice(maxrow * (budgetlinesPage - 1), maxrow * budgetlinesPage);
-  const budgetlinesTotalShow = budgetlines.length;
+  let budgetlinesToShow = [];
+  let budgetlinesTotalShow = 0;
+
+  if (programmeId !== 0) {
+    const budgetlinesFitered = budgetlines?.filter((budgetline) => budgetline.programme.toString() === programmeId.toString());
+    budgetlinesToShow = budgetlinesFitered?.slice(maxrow * (budgetlinesPage - 1), maxrow * budgetlinesPage);
+    budgetlinesTotalShow = budgetlinesFitered.length;
+  } else {
+    budgetlinesToShow = budgetlines?.slice(maxrow * (budgetlinesPage - 1), maxrow * budgetlinesPage);
+    budgetlinesTotalShow = budgetlines.length;
+  }
+  
   const budgetlinesPages = Math.ceil(budgetlinesTotalShow / maxrow);
 
   const handleBudgetLinesPageChange = (event, value) => {
@@ -52,7 +77,8 @@ export default function BudgetLines() {
   } 
 
   useEffect(() => {
-    dispatch(getBudgetLines());
+    dispatch(getProgrammes());
+    dispatch(getBudgetLines());      
   }, [dispatch]);
 
   useEffect(() => {
@@ -60,6 +86,15 @@ export default function BudgetLines() {
       navigate('/dashboard');
     }
   })
+
+  const handleProgrammeMenuItem = async (index) => {
+    setProgrammeMenuItemNum(index);
+
+    if (index > 0)
+      index = programmes[index - 1]._id;
+      
+    setProgrammeId(index);
+  } 
 
   return (
     <ThemeProvider theme={theme}>
@@ -93,19 +128,39 @@ export default function BudgetLines() {
           >
             Budget Lines
           </Typography>
-          <Button
-            sx={{
-              width: '200px',
-              mt: 4
-            }}
-            component={Link}
-            to="/budgetline/create"
-            variant="contained"
-            endIcon={<AddIcon />}
-            color="primary"
-          >
-            Add Budget Line
-          </Button>
+          <Grid container spacing={2} sx={{ mt: 1 }}>
+            <Grid item xs={12} sm={6}>
+              <Button
+                sx={{
+                  width: '200px',
+                  mt: 2
+                }}
+                component={Link}
+                to="/budgetline/create"
+                variant="contained"
+                endIcon={<AddIcon />}
+                color="primary"
+              >
+                Add Budget Line
+              </Button>
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                name="programme"
+                fullWidth
+                id="programme"
+                label="Programme Selection"
+                value={programmeNameMenu[programmeMenuItemNum]}
+                select
+              >
+                { programmeNameMenu.map((option, index) => (
+                  <MenuItem key={option} value={option} onClick={() => handleProgrammeMenuItem(index)}>
+                    {option}
+                  </MenuItem>
+                )) } 
+              </TextField>
+            </Grid>
+          </Grid>
           <TableContainer
             sx={{ mt: 1 }}
             component={Paper}

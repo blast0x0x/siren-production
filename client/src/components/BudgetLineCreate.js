@@ -84,6 +84,7 @@ export default function BudgetLineCreate() {
   }, [dispatch, programmeId]);
 
   const handleProgrammeItem = async (index) => {
+    console.log("eagle: handleProgrammeItem", index);
     setProgrammeId(index)
   };
 
