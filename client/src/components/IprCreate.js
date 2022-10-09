@@ -129,7 +129,6 @@ export default function IprCreate() {
     const budgetline = budgetlinevalue;
     const content = rows;
     const notes = data.get('notes');
-    rows = [];
     if (content.length === 0) return dispatch(setAlert('Please add content', 'error'));
     dispatch(registerIPR({ date, iprNo, dueDate, requestedBy, programme, output, activity, budgetline, content, notes }, navigate));
   };

@@ -180,6 +180,13 @@ export default function IPRRow(props) {
             inputProps={{ 'aria-label': 'controlled' }}
           />
         </TableCell>
+        <TableCell align="center">
+          <Switch
+            checked={row.approvalStage > 1}
+            onChange={(event) => handleCheckChange(row._id, event)}
+            inputProps={{ 'aria-label': 'controlled' }}
+          />
+        </TableCell>
         {row.approvalState === 2 ? (<TableCell align="center" sx={{ color: '#65C466' }} style={row.isNewIPR ? { fontWeight: '700' } : { fontWeight: '400' }}>Approved</TableCell>) : row.approvalState === 1 ? (<TableCell align="center" sx={{ color: '#9fa18c' }} style={row.isNewIPR ? { fontWeight: '700' } : { fontWeight: '400' }}>Declined</TableCell>) : (<TableCell align="center" sx={{ color: '#c55615' }} style={row.isNewIPR ? { fontWeight: '700' } : { fontWeight: '400' }}>Pending</TableCell>)}
         <TableCell align="center" style={row.isNewIPR ? { fontWeight: '700' } : { fontWeight: '400' }}>{stages[row.approvalStage]}</TableCell>
         <TableCell align="center" style={row.isNewIPR ? { fontWeight: '700' } : { fontWeight: '400' }}>Detail</TableCell>
