@@ -140,8 +140,18 @@ export default function IPRRow(props) {
     doc.save(row.iprNo+".pdf");
   }
 
-  const handleCheckChange = (id, event) => {
-    dispatch(updateIprApprovalById(id, event.target.checked));
+  const handleCheckApprovalChange = (id, event) => {
+    if (event.target.checked)
+      dispatch(updateIprApprovalById(id, 2));
+    else
+      dispatch(updateIprApprovalById(id, 0));
+  };
+
+  const handleCheckDeclineChange = (id, event) => {
+    if (event.target.checked)
+      dispatch(updateIprApprovalById(id, 1));
+    else
+      dispatch(updateIprApprovalById(id, 0));
   };
 
   const editIPR = (id) => {
@@ -175,15 +185,15 @@ export default function IPRRow(props) {
         <TableCell align="center">{row.budgetline.name}</TableCell>
         <TableCell align="center">
           <Switch
-            checked={row.approvalStage > 1}
-            onChange={(event) => handleCheckChange(row._id, event)}
+            checked={row.approvalStage == 2}
+            onChange={(event) => handleCheckApprovalChange(row._id, event)}
             inputProps={{ 'aria-label': 'controlled' }}
           />
         </TableCell>
         <TableCell align="center">
           <Switch
-            checked={row.approvalStage > 1}
-            onChange={(event) => handleCheckChange(row._id, event)}
+            checked={row.approvalStage == 1}
+            onChange={(event) => handleCheckDeclineChange(row._id, event)}
             inputProps={{ 'aria-label': 'controlled' }}
           />
         </TableCell>

@@ -114,7 +114,7 @@ router.post(
 
 router.post('/updateApprovalById', async (req, res) => {
   const { id, checked } = req.body;
-  const stage = checked ? 2 : 1;
+  const stage = checked;
   try {
     await IPR.findOneAndUpdate({ _id: id }, { approvalStage: stage, approvalState: stage, approvalDate: new Date() });
     const iprs = await IPR.find()
