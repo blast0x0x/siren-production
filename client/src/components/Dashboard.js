@@ -34,6 +34,7 @@ import { getUsers, updateUserApprovalById } from '../actions/user';
 import { checkFirst } from '../actions/auth';
 import { getIprs } from '../actions/ipr';
 import formatDate from '../utils/formatDate';
+import { getProgrammes } from '../actions/programme'
 
 const theme = createTheme();
 
@@ -59,6 +60,7 @@ export default function Dashboard() {
   const { isAuthenticated, user } = useSelector(state => state.auth);
   const { users, userloading } = useSelector(state => state.user);
   const { iprs, iprloading } = useSelector(state => state.ipr);
+  const { programmes } = useSelector(state => state.programme);
 
   const maxrow = 10;
   const iprsForStaff = iprs?.filter((ipr) => ipr.requestedBy._id.toString() === user?._id.toString()).sort(function (a, b) { return a.approvalState - b.approvalState });
@@ -111,6 +113,7 @@ export default function Dashboard() {
   useEffect(() => {
     dispatch(getUsers());
     dispatch(getIprs());
+    dispatch(getProgrammes())
   }, [dispatch]);
 
   return (
@@ -330,52 +333,55 @@ export default function Dashboard() {
                       </TableRow>
                     </TableHead>
                     <TableBody>
-                      {usersToShow.map((user, index) => (
-                        <TableRow
-                          key={user._id}
-                          index={index}
-                          sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                          style={index % 2 === 1 ? { background: '#daf8ff6b' } : { background: '#ffffff' }}
-                        >
-                          <TableCell align="center">{index + 1}</TableCell>
-                          <TableCell align="left">{user.firstName + ' ' + user.lastName}</TableCell>
-                          <TableCell align="center">{formatDate(user.birth)}</TableCell>
-                          <TableCell align="center">{user.address}</TableCell>
-                          <TableCell align="center">{user.phone}</TableCell>
-                          <TableCell align="center">{user.email}</TableCell>
-                          <TableCell align="center">{user.job}</TableCell>
-                          <TableCell align="center">{user.programme}</TableCell>
-                          <TableCell align="right">{user.contractNo}</TableCell>
-                          <TableCell align="right">
-                            <Switch
-                              checked={user.approvalState === 2}
-                              onChange={(event) => handleCheckChange(user._id, event)}
-                              inputProps={{ 'aria-label': 'controlled' }}
-                            />
-                          </TableCell>
-                          {user.approvalState === 2 ? (
-                            <TableCell
-                              align="right"
-                              sx={{ color: '#65C466' }}
-                            >
-                              Approved
-                            </TableCell>) : user.approvalState === 1 ? (
+                      {usersToShow.map((user, index) => {
+                        const programme = programmes?.filter((option) => option._id === user.programme);
+                        return (
+                          <TableRow
+                            key={user._id}
+                            index={index}
+                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                            style={index % 2 === 1 ? { background: '#daf8ff6b' } : { background: '#ffffff' }}
+                          >
+                            <TableCell align="center">{index + 1}</TableCell>
+                            <TableCell align="left">{user.firstName + ' ' + user.lastName}</TableCell>
+                            <TableCell align="center">{formatDate(user.birth)}</TableCell>
+                            <TableCell align="center">{user.address}</TableCell>
+                            <TableCell align="center">{user.phone}</TableCell>
+                            <TableCell align="center">{user.email}</TableCell>
+                            <TableCell align="center">{user.job}</TableCell>
+                            <TableCell align="center">{programme.length !== 0 ? programme[0]?.name : ""}</TableCell>
+                            <TableCell align="right">{user.contractNo}</TableCell>
+                            <TableCell align="right">
+                              <Switch
+                                checked={user.approvalState === 2}
+                                onChange={(event) => handleCheckChange(user._id, event)}
+                                inputProps={{ 'aria-label': 'controlled' }}
+                              />
+                            </TableCell>
+                            {user.approvalState === 2 ? (
                               <TableCell
                                 align="right"
-                                sx={{ color: '#9fa18c' }}
+                                sx={{ color: '#65C466' }}
                               >
-                                Declined
+                                Approved
+                              </TableCell>) : user.approvalState === 1 ? (
+                                <TableCell
+                                  align="right"
+                                  sx={{ color: '#9fa18c' }}
+                                >
+                                  Declined
+                                </TableCell>
+                              ) : (
+                              <TableCell
+                                align="right"
+                                sx={{ color: '#c55615' }}
+                              >
+                                Pending
                               </TableCell>
-                            ) : (
-                            <TableCell
-                              align="right"
-                              sx={{ color: '#c55615' }}
-                            >
-                              Pending
-                            </TableCell>
-                          )}
-                        </TableRow>
-                      ))}
+                            )}
+                          </TableRow>
+                        )
+                      })}
                     </TableBody>
                   </Table>
                   <Pagination

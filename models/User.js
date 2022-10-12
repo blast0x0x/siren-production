@@ -30,6 +30,10 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  programme: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: false
+  },
   password: {
     type: String,
     required: true

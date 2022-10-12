@@ -21,6 +21,7 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { getUser } from '../actions/user';
 import { updateUser } from '../actions/auth';
+import { getProgrammes } from '../actions/programme'
 
 const theme = createTheme();
 
@@ -61,6 +62,13 @@ export default function UserUpdate() {
   const [email, setEmail] = React.useState(user?.email);
   const [job, setJob] = React.useState(user?.job);
   const [contractNo, setContractNo] = React.useState(user?.contractNo);
+
+  const { programmes } = useSelector(state => state.programme);
+  const programmeOptions = programmes.map((option) => ({
+    value: option._id,
+    label: option.name
+  }))
+
   const setFN = (event) => {
     setFirstName(event.target.value);
   }
@@ -91,9 +99,10 @@ export default function UserUpdate() {
     const address = data.get('address');
     const phone = data.get('phone');
     const job = data.get('job');
+    const programme = data.get('programme')
     const contractNo = data.get('contractNo');
     const email = data.get('email');
-    dispatch(updateUser({ id, firstName, lastName, birth, address, phone, email, job, contractNo }, navigate));
+    dispatch(updateUser({ id, firstName, lastName, birth, address, phone, email, job, programme, contractNo }, navigate));
   };
 
   // useEffect(() => {
@@ -104,6 +113,7 @@ export default function UserUpdate() {
 
   useEffect(() => {
     dispatch(getUser(id));
+    dispatch(getProgrammes());
   }, [dispatch, id]);
 
   return (
@@ -210,6 +220,21 @@ export default function UserUpdate() {
                     select
                   >
                     {jobs.map((option) => (
+                      <MenuItem key={option.value} value={option.value}>
+                        {option.label}
+                      </MenuItem>
+                    ))}
+                  </TextField>
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    fullWidth
+                    id="programme"
+                    label="Programme"
+                    name="programme"
+                    select
+                  >
+                    {programmeOptions.map((option) => (
                       <MenuItem key={option.value} value={option.value}>
                         {option.label}
                       </MenuItem>

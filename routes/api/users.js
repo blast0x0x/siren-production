@@ -57,7 +57,7 @@ router.post(
     }
 
     // const { firstName, lastName, birth, address, phone, email, job, programme, contractNo, password, captchaToken } = req.body;
-    const { firstName, lastName, birth, address, phone, email, job, contractNo, password } = req.body;
+    const { firstName, lastName, birth, address, phone, email, job, programme, contractNo, password } = req.body;
 
     try {
       let user = await User.findOne({ email });
@@ -82,6 +82,7 @@ router.post(
         phone,
         email,
         job,
+        programme,
         password,
         contractNo,
         approvalState: 0,

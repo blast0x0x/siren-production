@@ -25,6 +25,7 @@ import AddIcon from '@mui/icons-material/Add';
 import Spinner from './Spinner';
 import { getUsers, getUser, deleteUserById } from '../actions/user';
 import formatDate from '../utils/formatDate';
+import { getProgrammes } from '../actions/programme'
 
 const theme = createTheme();
 
@@ -34,7 +35,7 @@ export default function Users() {
   const { user } = useSelector(state => state.auth);
   const [usersPage, setUsersPage] = React.useState(1);
   const { users, userloading } = useSelector(state => state.user);
-
+  const { programmes } = useSelector(state => state.programme);
   const maxrow = 10;
   const usersFilter = users.filter(
     (user) => user.approvalState >= 1
@@ -58,6 +59,7 @@ export default function Users() {
 
   useEffect(() => {
     dispatch(getUsers());
+    dispatch(getProgrammes());
   }, [dispatch]);
 
   useEffect(() => {
@@ -135,65 +137,70 @@ export default function Users() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {usersToShow.map((user, index) => (
-                  <TableRow
-                    key={user._id}
-                    index={index}
-                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                    style={index % 2 === 1 ? { background: '#daf8ff6b' } : { background: '#ffffff' }}
-                  >
-                    <TableCell align="center">{index + 1}</TableCell>
-                    <TableCell align="left">{user.firstName + ' ' + user.lastName}</TableCell>
-                    <TableCell align="center">{formatDate(user.birth)}</TableCell>
-                    <TableCell align="center">{user.address}</TableCell>
-                    <TableCell align="center">{user.phone}</TableCell>
-                    <TableCell align="center">{user.email}</TableCell>
-                    <TableCell align="center">{user.job}</TableCell>
-                    <TableCell align="center">{user.programme}</TableCell>
-                    <TableCell align="center">{user.contractNo}</TableCell>
-                    {user.approvalState === 2 ? (
-                      <TableCell
-                        align="center"
-                        sx={{ color: '#65C466' }}
-                      >
-                        Approved
-                      </TableCell>) : user.approvalState === 1 ? (
+                {usersToShow.map((user, index) => {
+                  const programme = programmes.filter((element) => element._id === user.programme);
+                  return (
+                    <TableRow
+                      key={user._id}
+                      index={index}
+                      sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                      style={index % 2 === 1 ? { background: '#daf8ff6b' } : { background: '#ffffff' }}
+                    >
+                      <TableCell align="center">{index + 1}</TableCell>
+                      <TableCell align="left">{user.firstName + ' ' + user.lastName}</TableCell>
+                      <TableCell align="center">{formatDate(user.birth)}</TableCell>
+                      <TableCell align="center">{user.address}</TableCell>
+                      <TableCell align="center">{user.phone}</TableCell>
+                      <TableCell align="center">{user.email}</TableCell>
+                      <TableCell align="center">{user.job}</TableCell>
+                      <TableCell align="center">{
+                        programme[0]?.name
+                      }</TableCell>
+                      <TableCell align="center">{user.contractNo}</TableCell>
+                      {user.approvalState === 2 ? (
                         <TableCell
                           align="center"
-                          sx={{ color: '#9fa18c' }}
+                          sx={{ color: '#65C466' }}
                         >
-                          Declined
+                          Approved
+                        </TableCell>) : user.approvalState === 1 ? (
+                          <TableCell
+                            align="center"
+                            sx={{ color: '#9fa18c' }}
+                          >
+                            Declined
+                          </TableCell>
+                        ) : (
+                        <TableCell
+                            align="center"
+                          sx={{ color: '#c55615' }}
+                        >
+                          Pending
                         </TableCell>
-                      ) : (
-                      <TableCell
-                          align="center"
-                        sx={{ color: '#c55615' }}
-                      >
-                        Pending
+                      )}
+                      <TableCell align="center" sx={{ pr: 0 }}>
+                        <Button
+                          onClick={() => editUser(user._id)}
+                          variant="text"
+                          color="primary"
+                          sx={{ pr: 0 }}
+                        >
+                          <EditIcon />
+                        </Button>
                       </TableCell>
-                    )}
-                    <TableCell align="center" sx={{ pr: 0 }}>
-                      <Button
-                        onClick={() => editUser(user._id)}
-                        variant="text"
-                        color="primary"
-                        sx={{ pr: 0 }}
-                      >
-                        <EditIcon />
-                      </Button>
-                    </TableCell>
-                    <TableCell align="center" sx={{ pl: 0 }}>
-                      <Button
-                        variant="text"
-                        color="primary"
-                        onClick={() => deleteUser(user._id)}
-                        sx={{ pl: 0 }}
-                      >
-                        <DeleteIcon />
-                      </Button>
-                    </TableCell>
-                  </TableRow>
-                ))}
+                      <TableCell align="center" sx={{ pl: 0 }}>
+                        <Button
+                          variant="text"
+                          color="primary"
+                          onClick={() => deleteUser(user._id)}
+                          sx={{ pl: 0 }}
+                        >
+                          <DeleteIcon />
+                        </Button>
+                      </TableCell>
+                    </TableRow>
+                  )
+                })}
               </TableBody>
             </Table>
             <Pagination

@@ -1,7 +1,7 @@
 import * as React from 'react';
-// import { useEffect } from 'react';
+import { useEffect } from 'react';
 import {
-  useDispatch,
+  useDispatch, useSelector,
   // useSelector
 } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -21,6 +21,8 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { setAlert } from '../actions/alert'
 import { createUser } from '../actions/auth'
+import { GET_PROGRAMMES } from '../actions/types';
+import { getProgrammes } from '../actions/programme'
 
 const theme = createTheme();
 
@@ -52,6 +54,15 @@ export default function UserCreate() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   // const { isAuthenticated } = useSelector(state => state.auth);
+  const { programmes } = useSelector(state => state.programme);
+  console.log("eagle", programmes);
+  const programmeOptions = programmes?.map((option) => ({
+    value: option._id,
+    label: option.name
+  }))
+  
+  console.log("eagle", programmeOptions);
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -61,6 +72,7 @@ export default function UserCreate() {
     const address = data.get('address');
     const phone = data.get('phone');
     const job = data.get('job');
+    const programme = data.get('programme');
     const contractNo = data.get('contractNo');
     const email = data.get('email');
     const password = data.get('password');
@@ -70,15 +82,16 @@ export default function UserCreate() {
     if (password !== password2) {
       dispatch(setAlert('Passwords do not match', 'error'));
     } else {
-      dispatch(createUser({ firstName, lastName, birth, address, phone, email, job, contractNo, password, captchaToken }, navigate));
+      dispatch(createUser({ firstName, lastName, birth, address, phone, email, job, programme, contractNo, password, captchaToken }, navigate));
     }
   };
 
-  // useEffect(() => {
-  //   if (isAuthenticated) {
-  //     navigate('/dashboard');
-  //   }
-  // }, [isAuthenticated, navigate])
+  useEffect(() => {
+    // if (isAuthenticated) {
+    //   navigate('/dashboard');
+    // }
+    dispatch(getProgrammes());
+  }, [dispatch/* isAuthenticated, navigate*/])
 
   return (
     <ThemeProvider theme={theme}>
@@ -176,6 +189,21 @@ export default function UserCreate() {
                         {option.label}
                       </MenuItem>
                     ))}
+                  </TextField>
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    fullWidth
+                    id="programme"
+                    label="Programme"
+                    name="programme"
+                    select
+                    >
+                      {programmeOptions.map((option) => (
+                        <MenuItem key={option.value} value={option.value}>
+                          {option.label}
+                        </MenuItem>
+                      ))}
                   </TextField>
                 </Grid>
                 <Grid item xs={12}>
