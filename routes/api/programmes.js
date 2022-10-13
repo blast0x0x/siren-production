@@ -19,7 +19,7 @@ router.get('/:id',
 
 router.get('/', async (req, res) => {
   try {
-    const programmes = await Programme.find();
+    const programmes = await Programme.find({ isRemoved: false });
     res.json(programmes);
   } catch (err) {
     res.status(500).send('Server Error');
@@ -46,7 +46,7 @@ router.post(
     const { name, acronym, donor, totalBudget, currency, startDate, duration, manager } = req.body;
 
     try {
-      let programme = await Programme.findOne({ name });
+      let programme = await Programme.findOne({ name: name, isRemoved: false });
 
       if (programme) {
         return res
@@ -68,6 +68,7 @@ router.post(
       await programme.save();
       res.send(programme);
     } catch (err) {
+      console.error(err.message);
       res.status(500).send('Server error');
     }
   }
@@ -120,8 +121,16 @@ router.post(
   '/delete/:id',
   async (req, res) => {
     try {
-      await Programme.findOneAndRemove({ _id: req.params.id });
-      const programmes = await Programme.find();
+      let programme = await Programme.findOne({ _id: req.params.id });
+
+      if (!programme) {
+        return res
+          .status(400)
+          .json({ errors: [{ msg: 'Programme not exist' }] });
+      }
+      programme.isRemoved = true;
+      await programme.save();
+      const programmes = await Programme.find({isRemoved: false});
       res.json(programmes);
     } catch (err) {
       res.status(500).send('Server error');

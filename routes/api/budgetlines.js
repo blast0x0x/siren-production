@@ -20,14 +20,13 @@ router.get('/:id',
 
 router.get('/', async (req, res) => {
   try {
-    const budgetlines = await BudgetLine.find();
+    const budgetlines = await BudgetLine.find({ isRemoved : false });
     res.json(budgetlines);
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');
   }
 });
-
 
 router.post(
   '/',
@@ -44,7 +43,7 @@ router.post(
     const { programme, name, currency, initialAmount } = req.body;
 
     try {
-      let budgetline = await BudgetLine.findOne({ name });
+      let budgetline = await BudgetLine.findOne({ name : name, isRemoved : false });
 
       if (budgetline && budgetline.programme == programme) {
         return res
@@ -83,7 +82,7 @@ router.post(
     const { id, programme, name, currency, initialAmount } = req.body;
 
     try {
-      let budgetline = await BudgetLine.findOne({ id });
+      let budgetline = await BudgetLine.findOne({ _id: id });
 
       if (!budgetline) {
         return res
@@ -108,8 +107,17 @@ router.post(
   '/delete/:id',
   async (req, res) => {
     try {
-      await BudgetLine.findOneAndRemove({ _id: req.params.id });
-      const budgetlines = await BudgetLine.find();
+      let budgetline = await BudgetLine.findOne({ _id: req.params.id });
+      
+      if (!budgetline) {
+        return res
+          .status(400)
+          .json({ errors: [{ msg: 'BudgetLine not exist' }] });
+      }
+
+      budgetline.isRemoved = true;
+      await budgetline.save();
+      const budgetlines = await BudgetLine.find({isRemoved: false});
       res.json(budgetlines);
     } catch (err) {
       console.error(err.message);

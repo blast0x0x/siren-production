@@ -71,10 +71,10 @@ export default function UserCreate() {
     const birth = value;
     const address = data.get('address');
     const phone = data.get('phone');
+    const email = data.get('email');
     const job = data.get('job');
     const programme = data.get('programme');
-    const contractNo = data.get('contractNo');
-    const email = data.get('email');
+    const contractNo = data.get('contractNo');    
     const password = data.get('password');
     const password2 = data.get('password2');
     const captchaToken = 'staticcatcha';

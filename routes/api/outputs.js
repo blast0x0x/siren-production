@@ -27,7 +27,7 @@ router.post(
     const { programme, connectedBudgetlines, name } = req.body;
 
     try {
-      let output = await Output.findOne({ name });
+      let output = await Output.findOne({ name:name });
 
       if (output) {
         return res

@@ -40,8 +40,6 @@ export default function BudgetLines() {
   const [budgetlinesPage, setBudgetLinesPage] = React.useState(1);
   const { budgetlines, budgetlineloading } = useSelector(state => state.budgetline);
 
-  console.log("eagle:programmes=", programmes);
-
   const programmeNameMenu = [];
   programmeNameMenu.push("All Programmes");
   for (let i = 0; i < programmes.length; i ++)
@@ -52,9 +50,9 @@ export default function BudgetLines() {
   const maxrow = 10;
   let budgetlinesToShow = [];
   let budgetlinesTotalShow = 0;
-
+  
   if (programmeId !== 0) {
-    const budgetlinesFitered = budgetlines?.filter((budgetline) => budgetline.programme.toString() === programmeId.toString());
+    const budgetlinesFitered = budgetlines.filter((budgetline) => budgetline.programme.toString() === programmeId.toString());
     budgetlinesToShow = budgetlinesFitered?.slice(maxrow * (budgetlinesPage - 1), maxrow * budgetlinesPage);
     budgetlinesTotalShow = budgetlinesFitered.length;
   } else {

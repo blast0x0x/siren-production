@@ -61,6 +61,7 @@ export default function UserUpdate() {
   const [phone, setPhone] = React.useState(user?.phone);
   const [email, setEmail] = React.useState(user?.email);
   const [job, setJob] = React.useState(user?.job);
+  const [programme, setProgramme] = React.useState(user?.programme);
   const [contractNo, setContractNo] = React.useState(user?.contractNo);
 
   const { programmes } = useSelector(state => state.programme);
@@ -86,6 +87,9 @@ export default function UserUpdate() {
   }
   const setJ = (event) => {
     setJob(event.target.value);
+  }
+  const setP = (event) => {
+    setProgramme(event.target.value);
   }
   const setCN = (event) => {
     setContractNo(event.target.value);
@@ -232,6 +236,8 @@ export default function UserUpdate() {
                     id="programme"
                     label="Programme"
                     name="programme"
+                    value={programme}
+                    onChange={setP}
                     select
                   >
                     {programmeOptions.map((option) => (

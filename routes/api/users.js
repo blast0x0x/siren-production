@@ -1,4 +1,5 @@
 const express = require('express');
+const mongoose = require('mongoose');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
@@ -26,7 +27,7 @@ router.get('/:id',
 // @access   Public
 router.get('/', async (req, res) => {
   try {
-    const users = await User.find();
+    const users = await User.find({ isRemoved: false });
     res.json(users);
   } catch (err) {
     console.error(err.message);
@@ -56,11 +57,10 @@ router.post(
       return res.status(400).json({ errors: errors.array() });
     }
 
-    // const { firstName, lastName, birth, address, phone, email, job, programme, contractNo, password, captchaToken } = req.body;
     const { firstName, lastName, birth, address, phone, email, job, programme, contractNo, password } = req.body;
 
     try {
-      let user = await User.findOne({ email });
+      let user = await User.findOne({ email:email, isRemoved: false });
 
       if (user) {
         return res
@@ -74,17 +74,23 @@ router.post(
       //     .json({ errors: [{ msg: 'Failed reCAPTCHA check' }] });
       // }
 
+      let programmeId;
+      if (programme == "")
+        programmeId = new mongoose.Types.ObjectId(0);
+      else
+        programmeId = new mongoose.Types.ObjectId(programme);
+      
       user = new User({
-        firstName,
-        lastName,
-        birth,
-        address,
-        phone,
-        email,
-        job,
-        programme,
-        password,
-        contractNo,
+        firstName: firstName,
+        lastName: lastName,
+        birth: birth,
+        address: address,
+        phone: phone,
+        email: email,
+        job: job,
+        programme: programmeId,
+        password: password,
+        contractNo: contractNo,
         approvalState: 0,
         isFirstLogin: true
       });
@@ -131,18 +137,21 @@ router.post(
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
-
-    const { id, firstName, lastName, birth, address, phone, email, job, contractNo } = req.body;
-
+    const { id, firstName, lastName, birth, address, phone, email, job, programme, contractNo } = req.body;
     try {
-      let user = await User.findOne({ id });
-
+      let user = await User.findOne({ _id:id });
       if (!user) {
         return res
           .status(400)
           .json({ errors: [{ msg: 'User not exist' }] });
       }
 
+      user = await User.findOne({ email: email, isRemoved: false });
+      if (user) {
+        return res
+          .status(400)
+          .json({ errors: [{ msg: 'User already exists' }] });
+      }
       user.firstName = firstName;
       user.lastName = lastName;
       user.birth = birth;
@@ -150,6 +159,7 @@ router.post(
       user.phone = phone;
       user.email = email;
       user.job = job;
+      user.programme = programme;
       user.contractNo = contractNo;
       await user.save();
       res.json({ user });
@@ -164,8 +174,16 @@ router.post(
   '/delete/:id',
   async (req, res) => {
     try {
-      await User.findOneAndRemove({ _id: req.params.id });
-      const users = await User.find();
+      let user = await User.findOne({ _id: req.params.id });
+      if (!user) {
+        return res
+          .status(400)
+          .json({ errors: [{ msg: 'User not exist '}]});
+      }
+
+      user.isRemoved = true;
+      await user.save();
+      const users = await User.find({ isRemoved: false });
       res.json(users);
     } catch (err) {
       console.error(err.message);
@@ -194,7 +212,7 @@ router.post(
     const { email, oldpassword, newpassword } = req.body;
 
     try {
-      let user = await User.findOne({ email });
+      let user = await User.findOne({ email:email });
 
       if (!user) {
         return res

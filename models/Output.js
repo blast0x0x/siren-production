@@ -25,6 +25,10 @@ const OutputSchema = new mongoose.Schema({
   date: {
     type: Date,
     default: Date.now
+  },
+  isRemoved: {
+    type: Boolean,
+    default: false
   }
 });
 
