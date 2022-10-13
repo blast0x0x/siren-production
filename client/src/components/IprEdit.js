@@ -111,7 +111,7 @@ export default function IprEdit() {
   const handleBudgetlineValueChange = (event) => {
     setBudtetlineValue(event.target.value);
   }
-  const programmeOptions = programmes?.map((option) => ({
+  const programmeOptions = programmes.filter((programme) => programme.isRemoved === false)?.map((option) => ({
     value: option._id,
     label: option.name
   }))

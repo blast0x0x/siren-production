@@ -90,6 +90,13 @@ export default function Outputs() {
     label: option.name
   }))
   const { outputs, outputloading } = useSelector(state => state.output);
+
+  let outputsFitered;
+  if (programmeId !== 0)
+    outputsFitered = outputs.filter((output) => output.programme === programmeId && output.isRemoved === false);
+  else
+    outputsFitered = outputs.filter((output) => output.isRemoved === false);
+
   const [expanded, setExpanded] = React.useState([]);
   const [name, setName] = React.useState('');
   const [activity, setActivity] = React.useState('');
@@ -240,9 +247,9 @@ export default function Outputs() {
 
   useEffect(() => {
     let temp = [];
-    for (let i = 0; i < outputs.length; i++) {
-      temp.push(outputs[i]._id);
-      const activitytemp = outputs[i].activities;
+    for (let i = 0; i < outputsFitered.length; i++) {
+      temp.push(outputsFitered[i]._id);
+      const activitytemp = outputsFitered[i].activities;
       for (let j = 0; j < activitytemp.length; j++) {
         temp.push(activitytemp[j]._id);
       }
@@ -254,7 +261,7 @@ export default function Outputs() {
     dispatch(getOutputs());
     dispatch(getProgrammes());
     dispatch(getBudgetLines());
-  }, [dispatch]);
+  }, [dispatch, programmeId]);
 
   useEffect(() => {
     if (user?.job !== 'Support Manager' && user?.job !== 'Finance Manager') {
@@ -304,7 +311,7 @@ export default function Outputs() {
             Outputs
           </Typography>
           
-          <Grid container spacing={2} sx={{ mt: 1 }}>
+          <Grid container spacing={2} sx={{ mt: 1 }} display="flex" justifyContent="center">
             <Grid item xs={12} sm={6}>
               <TextField
                 name="programme"
@@ -348,7 +355,7 @@ export default function Outputs() {
                   borderRadius: '8px'
                 }}
               >
-                {outputs?.map((output) => (
+                {outputsFitered?.map((output) => (
                   <TreeItem
                     key={output._id}
                     nodeId={output._id}
