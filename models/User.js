@@ -51,6 +51,10 @@ const UserSchema = new mongoose.Schema({
   date: {
     type: Date,
     default: Date.now
+  },
+  isRemoved: {
+    type: Boolean,
+    default: false
   }
 });
 

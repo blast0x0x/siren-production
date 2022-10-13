@@ -19,7 +19,7 @@ router.get('/:id',
 
 router.get('/', async (req, res) => {
   try {
-    const programmes = await Programme.find({ isRemoved: false });
+    const programmes = await Programme.find();
     res.json(programmes);
   } catch (err) {
     res.status(500).send('Server Error');
@@ -130,7 +130,7 @@ router.post(
       }
       programme.isRemoved = true;
       await programme.save();
-      const programmes = await Programme.find({isRemoved: false});
+      const programmes = await Programme.find();
       res.json(programmes);
     } catch (err) {
       res.status(500).send('Server error');

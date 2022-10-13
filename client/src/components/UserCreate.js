@@ -55,8 +55,8 @@ export default function UserCreate() {
   const navigate = useNavigate();
   // const { isAuthenticated } = useSelector(state => state.auth);
   const { programmes } = useSelector(state => state.programme);
-  console.log("eagle", programmes);
-  const programmeOptions = programmes?.map((option) => ({
+  const programmesFiltered = programmes.filter((programme) => programme.isRemoved === false);
+  const programmeOptions = programmesFiltered?.map((option) => ({
     value: option._id,
     label: option.name
   }))

@@ -40,10 +40,12 @@ export default function BudgetLines() {
   const [budgetlinesPage, setBudgetLinesPage] = React.useState(1);
   const { budgetlines, budgetlineloading } = useSelector(state => state.budgetline);
 
+  const programmesFiltered = programmes.filter((programme) => programme.isRemoved === false);
   const programmeNameMenu = [];
   programmeNameMenu.push("All Programmes");
-  for (let i = 0; i < programmes.length; i ++)
-    programmeNameMenu.push(programmes[i].acronym);
+  for (let i = 0; i < programmesFiltered.length; i ++)
+    programmeNameMenu.push(programmesFiltered[i].name);
+    
   const [programmeMenuItemNum, setProgrammeMenuItemNum] = React.useState(0);
   const [programmeId, setProgrammeId] = React.useState(0);
 
@@ -51,14 +53,14 @@ export default function BudgetLines() {
   let budgetlinesToShow = [];
   let budgetlinesTotalShow = 0;
   
-  if (programmeId !== 0) {
-    const budgetlinesFitered = budgetlines.filter((budgetline) => budgetline.programme.toString() === programmeId.toString());
-    budgetlinesToShow = budgetlinesFitered?.slice(maxrow * (budgetlinesPage - 1), maxrow * budgetlinesPage);
-    budgetlinesTotalShow = budgetlinesFitered.length;
-  } else {
-    budgetlinesToShow = budgetlines?.slice(maxrow * (budgetlinesPage - 1), maxrow * budgetlinesPage);
-    budgetlinesTotalShow = budgetlines.length;
-  }
+  let budgetlinesFitered;
+  if (programmeId !== 0)
+    budgetlinesFitered = budgetlines.filter((budgetline) => budgetline.programme === programmeId && budgetline.isRemoved === false);
+  else
+    budgetlinesFitered = budgetlines.filter((budgetline) => budgetline.isRemoved === false);
+
+  budgetlinesToShow = budgetlinesFitered?.slice(maxrow * (budgetlinesPage - 1), maxrow * budgetlinesPage);
+  budgetlinesTotalShow = budgetlinesFitered.length;
   
   const budgetlinesPages = Math.ceil(budgetlinesTotalShow / maxrow);
 
@@ -89,7 +91,7 @@ export default function BudgetLines() {
     setProgrammeMenuItemNum(index);
 
     if (index > 0)
-      index = programmes[index - 1]._id;
+      index = programmesFiltered[index - 1]._id;
       
     setProgrammeId(index);
   } 

@@ -20,7 +20,7 @@ router.get('/:id',
 
 router.get('/', async (req, res) => {
   try {
-    const budgetlines = await BudgetLine.find({ isRemoved : false });
+    const budgetlines = await BudgetLine.find();
     res.json(budgetlines);
   } catch (err) {
     console.error(err.message);
@@ -117,7 +117,7 @@ router.post(
 
       budgetline.isRemoved = true;
       await budgetline.save();
-      const budgetlines = await BudgetLine.find({isRemoved: false});
+      const budgetlines = await BudgetLine.find();
       res.json(budgetlines);
     } catch (err) {
       console.error(err.message);

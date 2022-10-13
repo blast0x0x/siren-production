@@ -72,9 +72,20 @@ export default function Outputs() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user } = useSelector(state => state.auth);
+  
   const { programmes } = useSelector(state => state.programme);
+  const programmesFiltered = programmes.filter((programme) => programme.isRemoved === false);
+  const programmeNameMenu = [];
+  programmeNameMenu.push("All Programmes");
+  for (let i = 0; i < programmesFiltered.length; i ++)
+    programmeNameMenu.push(programmesFiltered[i].name);
+  const [programmeMenuItemNum, setProgrammeMenuItemNum] = React.useState(0);
+  const [programmeId, setProgrammeId] = React.useState(0);
+
   const { budgetlines } = useSelector(state => state.budgetline);
-  const programmeOptions = programmes?.map((option) => ({
+  const budgetlinesFiltered = budgetlines.filter((budgetline) => budgetline.isRemoved === false);
+
+  const programmeOptions = programmesFiltered?.map((option) => ({
     value: option._id,
     label: option.name
   }))
@@ -100,7 +111,7 @@ export default function Outputs() {
   const handleProgrammeValueChange = (event) => {
     setConnectedBudgetLineNames([]);
     setProgrammeValue(event.target.value);
-    setBudgetlinefilters(budgetlines.filter((budgetline) => budgetline.programme.toString() === event.target.value.toString()));
+    setBudgetlinefilters(budgetlinesFiltered.filter((budgetline) => budgetline.programme.toString() === event.target.value.toString()));
   }
 
   const handleChange = (event) => {
@@ -111,8 +122,8 @@ export default function Outputs() {
       typeof value === 'string' ? value.split(',') : value,
     );
     let nameIdPairs = {};
-    for (let i = 0; i < budgetlines.length; i++)
-      nameIdPairs[budgetlines[i].name] = budgetlines[i]._id;
+    for (let i = 0; i < budgetlinesFiltered.length; i++)
+      nameIdPairs[budgetlinesFiltered[i].name] = budgetlinesFiltered[i]._id;
     const budgetLineIds = value.map((name) => nameIdPairs[name]);
     setConnectedBudgetLineIds(budgetLineIds);
   };
@@ -131,8 +142,8 @@ export default function Outputs() {
     setIdToUpdateOutput(output._id);
     setProgrammeValue(output.programme);
     let idNamePairs = {};
-    for (let i = 0; i < budgetlines.length; i++)
-      idNamePairs[budgetlines[i]._id] = budgetlines[i].name;
+    for (let i = 0; i < budgetlinesFiltered.length; i++)
+      idNamePairs[budgetlinesFiltered[i]._id] = budgetlinesFiltered[i].name;
     const budgetLineNames = output.connectedBudgetlines.map((id) => idNamePairs[id]);
     setConnectedBudgetLineNames(budgetLineNames);
     setOpenOutputEdit(true);
@@ -251,6 +262,15 @@ export default function Outputs() {
     }
   })
 
+  const handleProgrammeMenuItem = async (index) => {
+    setProgrammeMenuItemNum(index);
+
+    if (index > 0)
+      index = programmesFiltered[index - 1]._id;
+      
+    setProgrammeId(index);
+  }
+
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xl">
@@ -283,6 +303,26 @@ export default function Outputs() {
           >
             Outputs
           </Typography>
+          
+          <Grid container spacing={2} sx={{ mt: 1 }}>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                name="programme"
+                fullWidth
+                id="programme"
+                label="Programme Selection"
+                value={programmeNameMenu[programmeMenuItemNum]}
+                select
+              >
+                { programmeNameMenu.map((option, index) => (
+                  <MenuItem key={option} value={option} onClick={() => handleProgrammeMenuItem(index)}>
+                    {option}
+                  </MenuItem>
+                )) } 
+              </TextField>
+            </Grid>
+          </Grid>
+          
           <Box
             sx={{
               mt: 4,

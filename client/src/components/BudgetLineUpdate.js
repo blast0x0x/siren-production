@@ -55,7 +55,8 @@ export default function BudgetLineUpdate() {
   const [programmeId, setProgrammeId] = React.useState()
   const { budgetline } = useSelector(state => state.budgetline);
   const { programmes } = useSelector(state => state.programme);
-  const programmeOptions = programmes?.map((option) => ({
+  const programmesFiltered = programmes.filter((option) => option.isRemoved === false);
+  const programmeOptions = programmesFiltered?.map((option) => ({
     value: option._id,
     label: option.name
   }))
@@ -162,7 +163,7 @@ export default function BudgetLineUpdate() {
                     fullWidth
                     id="currency"
                     label="Currency"
-                    value={programmeId !== undefined ? programmes[programmeId].currency : currency}
+                    value={programmeId !== undefined ? programmesFiltered[programmeId].currency : currency}
                     onChange={setC}
                     select
                   >

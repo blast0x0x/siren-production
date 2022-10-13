@@ -27,7 +27,7 @@ router.get('/:id',
 // @access   Public
 router.get('/', async (req, res) => {
   try {
-    const users = await User.find({ isRemoved: false });
+    const users = await User.find();
     res.json(users);
   } catch (err) {
     console.error(err.message);
@@ -139,30 +139,30 @@ router.post(
     }
     const { id, firstName, lastName, birth, address, phone, email, job, programme, contractNo } = req.body;
     try {
-      let user = await User.findOne({ _id:id });
-      if (!user) {
+      let userCurrent = await User.findOne({ _id:id });
+      if (!userCurrent) {
         return res
           .status(400)
           .json({ errors: [{ msg: 'User not exist' }] });
       }
 
-      user = await User.findOne({ email: email, isRemoved: false });
-      if (user) {
+      let userDuplicated = await User.findOne({ email: email });
+      if (userDuplicated && userCurrent.email !== userDuplicated.email) {
         return res
           .status(400)
           .json({ errors: [{ msg: 'User already exists' }] });
       }
-      user.firstName = firstName;
-      user.lastName = lastName;
-      user.birth = birth;
-      user.address = address;
-      user.phone = phone;
-      user.email = email;
-      user.job = job;
-      user.programme = programme;
-      user.contractNo = contractNo;
-      await user.save();
-      res.json({ user });
+      userCurrent.firstName = firstName;
+      userCurrent.lastName = lastName;
+      userCurrent.birth = birth;
+      userCurrent.address = address;
+      userCurrent.phone = phone;
+      userCurrent.email = email;
+      userCurrent.job = job;
+      userCurrent.programme = programme;
+      userCurrent.contractNo = contractNo;
+      await userCurrent.save();
+      res.json({ userCurrent });
     } catch (err) {
       console.error(err.message);
       res.status(500).send('Server error');
@@ -183,7 +183,7 @@ router.post(
 
       user.isRemoved = true;
       await user.save();
-      const users = await User.find({ isRemoved: false });
+      const users = await User.find();
       res.json(users);
     } catch (err) {
       console.error(err.message);

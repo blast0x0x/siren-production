@@ -54,8 +54,8 @@ export default function BudgetLineCreate() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { programmes } = useSelector(state => state.programme);
-  
-  const programmeOptions = programmes?.map((option) => ({
+  const programmesFiltered = programmes.filter((option) => option.isRemoved === false);
+  const programmeOptions = programmesFiltered?.map((option) => ({
     value: option._id,
     label: option.name
   }))
@@ -138,7 +138,7 @@ export default function BudgetLineCreate() {
                     fullWidth
                     id="currency"
                     label="Currency"
-                    value={programmeId !== undefined ? programmes[programmeId].currency : ""}
+                    value={programmeId !== undefined ? programmesFiltered[programmeId].currency : ""}
                     select
                   >
                     {currencies.map((option) => (

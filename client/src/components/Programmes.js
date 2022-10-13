@@ -36,8 +36,9 @@ export default function Programmes() {
   const { programmes, programmeloading } = useSelector(state => state.programme);
 
   const maxrow = 10;
-  const programmesToShow = programmes?.slice(maxrow * (programmesPage - 1), maxrow * programmesPage);
-  const programmesTotalShow = programmes.length;
+  const programmesFiltered = programmes.filter((option) => option.isRemoved === false);
+  const programmesToShow = programmesFiltered?.slice(maxrow * (programmesPage - 1), maxrow * programmesPage);
+  const programmesTotalShow = programmesFiltered.length;
   const programmesPages = Math.ceil(programmesTotalShow / maxrow);
 
   const handleProgrammesPageChange = (event, value) => {

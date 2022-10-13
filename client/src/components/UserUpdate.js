@@ -65,7 +65,8 @@ export default function UserUpdate() {
   const [contractNo, setContractNo] = React.useState(user?.contractNo);
 
   const { programmes } = useSelector(state => state.programme);
-  const programmeOptions = programmes.map((option) => ({
+  const prorammesFiltered = programmes.filter((programme) => programme.isRemoved === false);
+  const programmeOptions = prorammesFiltered.map((option) => ({
     value: option._id,
     label: option.name
   }))

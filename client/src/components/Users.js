@@ -16,7 +16,10 @@ import {
   TableBody,
   Pagination,
   Paper,
-  Button
+  Button,
+  Grid,
+  TextField,
+  MenuItem
 } from '@mui/material'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import EditIcon from '@mui/icons-material/Edit';
@@ -36,13 +39,28 @@ export default function Users() {
   const [usersPage, setUsersPage] = React.useState(1);
   const { users, userloading } = useSelector(state => state.user);
   const { programmes } = useSelector(state => state.programme);
-  const maxrow = 10;
-  const usersFilter = users.filter(
-    (user) => user.approvalState >= 1
-  );
 
-  const usersToShow = usersFilter?.slice(maxrow * (usersPage - 1), maxrow * usersPage);
-  const usersTotalShow = usersFilter.length;
+  let programmesFiltered = programmes.filter((programme) => programme.isRemoved === false);
+  const programmeNameMenu = [];
+  programmeNameMenu.push("All Programmes");
+  for (let i = 0; i < programmesFiltered.length; i ++)
+    programmeNameMenu.push(programmesFiltered[i].name);
+  const [programmeMenuItemNum, setProgrammeMenuItemNum] = React.useState(0);
+  const [programmeId, setProgrammeId] = React.useState(0);
+
+  const maxrow = 10;
+  let usersFiltered;
+  let usersToShow = [];
+  let usersTotalShow = 0;
+  
+  if (programmeId !== 0)
+    usersFiltered = users.filter((user) => user.programme === programmeId && user.approvalState === 2 && user.isRemoved === false);
+  else
+    usersFiltered = users.filter((user) => user.approvalState === 2 && user.isRemoved === false);
+    
+  usersToShow = usersFiltered?.slice(maxrow * (usersPage - 1), maxrow * usersPage);
+  usersTotalShow = usersFiltered.length;
+  
   const usersPages = Math.ceil(usersTotalShow / maxrow);
 
   const handleUsersPageChange = (event, value) => {
@@ -67,6 +85,15 @@ export default function Users() {
       navigate('/dashboard');
     }
   })
+
+  const handleProgrammeMenuItem = async (index) => {
+    setProgrammeMenuItemNum(index);
+
+    if (index > 0)
+      index = programmesFiltered[index - 1]._id;
+      
+    setProgrammeId(index);
+  }
 
   return (
   <ThemeProvider theme={theme}>
@@ -100,19 +127,39 @@ export default function Users() {
           >
             Users
           </Typography>
-          <Button
-            sx={{
-              width: '200px',
-              mt: 4
-            }}
-            component={Link}
-            to="/user/create"
-            variant="contained"
-            endIcon={<AddIcon />}
-            color="primary"
-          >
-            Add User
-          </Button>
+          <Grid container spacing={2} sx={{ mt: 1 }}>
+            <Grid item xs={12} sm={6}>
+              <Button
+                sx={{
+                  width: '200px',
+                  mt: 4
+                }}
+                component={Link}
+                to="/user/create"
+                variant="contained"
+                endIcon={<AddIcon />}
+                color="primary"
+              >
+                Add User
+              </Button>
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                name="programme"
+                fullWidth
+                id="programme"
+                label="Programme Selection"
+                value={programmeNameMenu[programmeMenuItemNum]}
+                select
+              >
+                { programmeNameMenu.map((option, index) => (
+                  <MenuItem key={option} value={option} onClick={() => handleProgrammeMenuItem(index)}>
+                    {option}
+                  </MenuItem>
+                )) } 
+              </TextField>
+            </Grid>
+          </Grid>          
           <TableContainer
             sx={{ mt: 1 }}
             component={Paper}
@@ -138,7 +185,7 @@ export default function Users() {
               </TableHead>
               <TableBody>
                 {usersToShow.map((user, index) => {
-                  const programme = programmes.filter((element) => element._id === user.programme);
+                  const programme = programmesFiltered.filter((element) => element._id === user.programme);
                   return (
                     <TableRow
                       key={user._id}
