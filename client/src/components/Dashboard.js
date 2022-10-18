@@ -20,6 +20,9 @@ import {
   Switch,
   Pagination
 } from '@mui/material'
+import Chart from 'chart.js/auto';
+import { Pie } from 'react-chartjs-2';
+import {CategoryScale} from 'chart.js'; 
 import PersonIcon from '@mui/icons-material/Person';
 import ArticleIcon from '@mui/icons-material/Article';
 import AddIcon from '@mui/icons-material/Add';
@@ -37,6 +40,7 @@ import formatDate from '../utils/formatDate';
 import { getProgrammes } from '../actions/programme'
 
 const theme = createTheme();
+Chart.register(CategoryScale);
 
 export default function Dashboard() {
   const dispatch = useDispatch();
@@ -142,7 +146,7 @@ export default function Dashboard() {
             <Typography
               sx={{
                 textAlign: 'center',
-                mt: 8
+                mt: 3
               }}
               component="h1"
               variant="h5"
@@ -154,11 +158,21 @@ export default function Dashboard() {
                 <Box
                   sx={{
                     display: 'flex',
-                    alignItems: 'center',
+                    alignItems: 'baseline',
                     justifyContent: 'space-between',
-                    mt: 12,
+                    mt: 2,
                     mb: 1
                   }}>
+                  <Chip
+                    sx={{
+                      fontSize: '20px',
+                      width: '98px',
+                    }}
+                    icon={<ArticleIcon />}
+                    label="IPRs:"
+                    color="primary"
+                    variant="outlined"
+                  />
                   <Typography
                     sx={{
                       mt: 1,
@@ -168,7 +182,20 @@ export default function Dashboard() {
                     component="h5"
                     variant="h5"
                   >
-                    Total Requested: {staffTotal}, Approved: {staffApproved}, Declined: {staffDeclined}, Pending: {staffPending}
+                    <Pie
+                      datasetIdKey='idstuff'
+                      data={{
+                        labels: ['Total Requested: ' + staffTotal, 'Approved: ' + staffApproved, 'Declined: ' + staffDeclined, 'Pending: ' + staffPending],
+                        datasets: [
+                          {
+                            id: 1,
+                            label: '',
+                            data: [staffTotal, staffApproved, staffDeclined, staffPending],
+                            backgroundColor: ["#ffa600", "#0000ff", "#ff0000", "#00ff00"],
+                          }
+                        ],
+                      }}
+                    />
                   </Typography>
                   <Button
                     component={Link}
@@ -400,7 +427,7 @@ export default function Dashboard() {
                 <Box
                   sx={{
                     display: 'flex',
-                    alignItems: 'center',
+                    alignItems: 'baseline',
                     justifyContent: 'space-between',
                     mt: 12,
                     mb: 1
@@ -408,7 +435,7 @@ export default function Dashboard() {
                   <Chip
                     sx={{
                       fontSize: '20px',
-                      width: '98px'
+                      width: '98px',
                     }}
                     icon={<ArticleIcon />}
                     label="IPRs:"
@@ -423,8 +450,21 @@ export default function Dashboard() {
                     }}
                     component="h5"
                     variant="h5"
-                  >
-                    Total Requested: {supportTotal}, Approved: {supportApproved}, Declined: {supportDeclined}, Pending: {supportPending}
+                  >                    
+                    <Pie
+                      datasetIdKey='id'
+                      data={{
+                        labels: ['Total Requested: ' + supportTotal, 'Approved: ' + supportApproved, 'Declined: ' + supportDeclined, 'Pending: ' + supportPending],
+                        datasets: [
+                          {
+                            id: 1,
+                            label: '',
+                            data: [supportTotal, supportApproved, supportDeclined, supportPending],
+                            backgroundColor: ["#ffa600", "#0000ff", "#ff0000", "#00ff00"],
+                          }
+                        ],
+                      }}
+                    />
                   </Typography>
                   <Button
                     component={Link}

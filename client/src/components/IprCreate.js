@@ -114,7 +114,7 @@ export default function IprCreate() {
     user
   } = useSelector(state => state.auth);
 
-  const IPRNumber = 'SIREN/PROGRAMME-' + formatDate(new Date()) + '-' + Date.now() % 100;
+  const IPRNumber = 'IRP/PROGRAMME-' + formatDate(new Date()) + '-' + Date.now() % 100;
 
   const handleSubmit = (event) => {
     event.preventDefault();

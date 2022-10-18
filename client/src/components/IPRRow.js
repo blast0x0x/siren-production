@@ -179,7 +179,7 @@ export default function IPRRow(props) {
         <TableCell align="center" style={row.isNewIPR ? { fontWeight: '700' } : { fontWeight: '400' }}>{formatDate(row.registerDate)}</TableCell>
         <TableCell align="center" style={row.isNewIPR ? { fontWeight: '700' } : { fontWeight: '400' }}>{formatDate(row.dueDate)}</TableCell>
         <TableCell align="center" style={row.isNewIPR ? { fontWeight: '700' } : { fontWeight: '400' }}>{(row.approvalStage > 1) && formatDate(row.approvalDate)}</TableCell>
-        <TableCell align="center">{row.programme.name}</TableCell>
+        <TableCell align="center">{row.programme.acronym}</TableCell>
         <TableCell align="center">{row.output.name}</TableCell>
         { /* <TableCell align="center">{row.output.activities.filter((activity) => activity._id.toString() === row.activity.toString())[0].activityName}</TableCell> */ }
         <TableCell align="center">{row.budgetline.name}</TableCell>

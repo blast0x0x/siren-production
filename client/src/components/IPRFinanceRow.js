@@ -59,7 +59,7 @@ export default function IPRFinanceRow(props) {
         </TableCell>
         <TableCell align="center">{formatDate(row.registerDate)}</TableCell>
         <TableCell align="center">{formatDate(row.dueDate)}</TableCell>
-        <TableCell align="center">{row.programme.name}</TableCell>
+        <TableCell align="center">{row.programme.acronym}</TableCell>
         <TableCell align="center">{row.output.name}</TableCell>
         <TableCell align="center">{row.output.activities.filter((activity) => activity._id.toString() === row.activity.toString())[0].activityName}</TableCell>
         <TableCell align="center">{row.budgetline.name}</TableCell>

@@ -173,45 +173,50 @@ export default function BudgetLines() {
                 <TableRow>
                   <TableCell align="center"><b>No.</b></TableCell>
                   <TableCell align="left"><b>Name</b></TableCell>
+                  <TableCell align="left"><b>Programme</b></TableCell>
                   <TableCell align="center"><b>Currency</b></TableCell>
                   <TableCell align="center"><b>Initial Amount</b></TableCell>
                   <TableCell align="center" colSpan={2}><b>Actions</b></TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                {budgetlinesToShow.map((budgetline, index) => (
-                  <TableRow
-                    key={budgetline._id}
-                    index={index}
-                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                    style={index % 2 === 1 ? { background: '#daf8ff6b' } : { background: '#ffffff' }}
-                  >
-                    <TableCell align="center">{index + 1}</TableCell>
-                    <TableCell align="left">{budgetline.name}</TableCell>
-                    <TableCell align="center">{budgetline.currency}</TableCell>
-                    <TableCell align="center">{budgetline.initialAmount}</TableCell>
-                    <TableCell align="center" sx={{ pr: 0 }}>
-                      <Button
-                        onClick={() => editBudgetLine(budgetline._id)}
-                        variant="text"
-                        color="primary"
-                        sx={{ pr: 0 }}
-                      >
-                        <EditIcon />
-                      </Button>
-                    </TableCell>
-                    <TableCell align="center" sx={{ pl: 0 }}>
-                      <Button
-                        variant="text"
-                        color="primary"
-                        onClick={() => deleteBudgetLine(budgetline._id)}
-                        sx={{ pl: 0 }}
-                      >
-                        <DeleteIcon />
-                      </Button>
-                    </TableCell>
-                  </TableRow>
-                ))}
+                {budgetlinesToShow.map((budgetline, index) => {
+                  const programme = programmesFiltered.filter((element) => element._id === budgetline.programme);
+                  return (
+                    <TableRow
+                      key={budgetline._id}
+                      index={index}
+                      sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                      style={index % 2 === 1 ? { background: '#daf8ff6b' } : { background: '#ffffff' }}
+                    >
+                      <TableCell align="center">{index + 1}</TableCell>
+                      <TableCell align="left">{budgetline.name}</TableCell>
+                      <TableCell align="left">{programme[0]?.name}</TableCell>
+                      <TableCell align="center">{budgetline.currency}</TableCell>
+                      <TableCell align="center">{budgetline.initialAmount}</TableCell>
+                      <TableCell align="center" sx={{ pr: 0 }}>
+                        <Button
+                          onClick={() => editBudgetLine(budgetline._id)}
+                          variant="text"
+                          color="primary"
+                          sx={{ pr: 0 }}
+                        >
+                          <EditIcon />
+                        </Button>
+                      </TableCell>
+                      <TableCell align="center" sx={{ pl: 0 }}>
+                        <Button
+                          variant="text"
+                          color="primary"
+                          onClick={() => deleteBudgetLine(budgetline._id)}
+                          sx={{ pl: 0 }}
+                        >
+                          <DeleteIcon />
+                        </Button>
+                      </TableCell>
+                    </TableRow>
+                  )
+                })}
               </TableBody>
             </Table>
             <Pagination

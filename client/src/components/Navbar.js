@@ -135,6 +135,9 @@ const Navbar = () => {
                     display: { xs: 'block', md: 'none' },
                   }}
                 >
+                  <MenuItem onClick={goDashboard}>
+                    <Typography textAlign="center">Dashboard</Typography>
+                  </MenuItem>
                   <MenuItem onClick={goProgrammes}>
                     <Typography textAlign="center">Programmes</Typography>
                   </MenuItem>
@@ -167,42 +170,55 @@ const Navbar = () => {
               </Box>
               <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                 <Button
-                onClick={goProgrammes}
-                variant="outlined"
-                sx={{
-                  color: '#ffffff',
-                  border: '1px solid #ffffff',
-                  borderRadius: '12px',
-                  px: '8px',
-                  mr: '8px'
-                }}
-                >
-                  Programmes
-              </Button>
-              <Button
-                onClick={goBudgetLines}
-                variant="outlined"
-                sx={{
-                  color: '#ffffff',
-                  border: '1px solid #ffffff',
-                  borderRadius: '12px',
-                  px: '8px',
-                  mr: '8px'
-                }}
-              >
-                Budget Lines
-              </Button>
+                  onClick={goDashboard}
+                  variant="outlined"
+                  sx={{
+                    color: '#ffffff',
+                    border: '1px solid #ffffff',
+                    borderRadius: '12px',
+                    px: '8px',
+                    mr: '8px'
+                  }}
+                  >
+                    Dashboard
+                </Button>
                 <Button
-                onClick={goOutputs}
-                variant="outlined"
-                sx={{
-                  color: '#ffffff',
-                  border: '1px solid #ffffff',
-                  borderRadius: '12px',
-                  px: '8px',
-                  mr: '8px'
-                }}
+                  onClick={goProgrammes}
+                  variant="outlined"
+                  sx={{
+                    color: '#ffffff',
+                    border: '1px solid #ffffff',
+                    borderRadius: '12px',
+                    px: '8px',
+                    mr: '8px'
+                  }}
+                  >
+                    Programmes
+                </Button>
+                <Button
+                  onClick={goBudgetLines}
+                  variant="outlined"
+                  sx={{
+                    color: '#ffffff',
+                    border: '1px solid #ffffff',
+                    borderRadius: '12px',
+                    px: '8px',
+                    mr: '8px'
+                  }}
                 >
+                  Budget Lines
+                </Button>
+                <Button
+                  onClick={goOutputs}
+                  variant="outlined"
+                  sx={{
+                    color: '#ffffff',
+                    border: '1px solid #ffffff',
+                    borderRadius: '12px',
+                    px: '8px',
+                    mr: '8px'
+                  }}
+                  >
                   Outputs
                 </Button>
                 {user?.job === 'Support Manager' &&

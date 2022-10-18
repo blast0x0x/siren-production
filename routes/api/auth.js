@@ -37,7 +37,15 @@ router.post(
     const { email, password } = req.body;
 
     try {
-      let user = await User.findOne({ email });
+      let users = await User.find();
+      let user;
+
+      for (let i = 0; i < users.length; i ++) {
+        if (users[i].email.toLowerCase() === email.toLowerCase()) {
+          user = users[i];
+          break;
+        }
+      }
 
       if (!user) {
         return res
