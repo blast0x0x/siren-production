@@ -177,13 +177,15 @@ export default function Dashboard() {
                     sx={{
                       mt: 1,
                       textAlign: 'left',
-                      fontSize: '15px'
+                      fontSize: '15px',
+                      width: '250px'
                     }}
                     component="h5"
                     variant="h5"
                   >
                     <Pie
                       datasetIdKey='idstuff'
+                      alignItems='left'
                       data={{
                         labels: ['Total Requested: ' + staffTotal, 'Approved: ' + staffApproved, 'Declined: ' + staffDeclined, 'Pending: ' + staffPending],
                         datasets: [
@@ -429,7 +431,7 @@ export default function Dashboard() {
                     display: 'flex',
                     alignItems: 'baseline',
                     justifyContent: 'space-between',
-                    mt: 12,
+                    mt: 3,
                     mb: 1
                   }}>
                   <Chip
@@ -446,7 +448,8 @@ export default function Dashboard() {
                     sx={{
                       mt: 1,
                       textAlign: 'left',
-                      fontSize: '15px'
+                      fontSize: '15px',
+                      width: '250px'
                     }}
                     component="h5"
                     variant="h5"
