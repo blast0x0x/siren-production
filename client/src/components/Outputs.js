@@ -135,7 +135,10 @@ export default function Outputs() {
     setConnectedBudgetLineIds(budgetLineIds);
   };
 
-  const openOutputCreateModal = () => setOpenOutputCreate(true);
+  const openOutputCreateModal = () => {
+    setBudgetlinefilters(null);
+    setOpenOutputCreate(true);
+  }
 
   const closeOutputCreateModal = () => {
     setOpenOutputCreate(false);
@@ -148,10 +151,15 @@ export default function Outputs() {
     setName(output.name);
     setIdToUpdateOutput(output._id);
     setProgrammeValue(output.programme);
+    const budgetlinesFilteredByProgramme = budgetlinesFiltered.filter((budgetline) => budgetline.programme === output.programme);
+    
+    setBudgetlinefilters(budgetlinesFilteredByProgramme);
     let idNamePairs = {};
-    for (let i = 0; i < budgetlinesFiltered.length; i++)
-      idNamePairs[budgetlinesFiltered[i]._id] = budgetlinesFiltered[i].name;
-    const budgetLineNames = output.connectedBudgetlines.map((id) => idNamePairs[id]);
+    for (let i = 0; i < budgetlinesFilteredByProgramme.length; i++)
+      idNamePairs[budgetlinesFilteredByProgramme[i]._id] = budgetlinesFilteredByProgramme[i].name;
+    
+    const budgetLineNames = output.connectedBudgetlines.map((budgetline) => idNamePairs[budgetline._id]);
+    
     setConnectedBudgetLineNames(budgetLineNames);
     setOpenOutputEdit(true);
   }
