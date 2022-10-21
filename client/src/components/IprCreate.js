@@ -34,7 +34,7 @@ import { registerIPR } from '../actions/ipr';
 import { getProgrammes } from '../actions/programme';
 // import { getBudgetLines } from '../actions/budgetline';
 import { getOutputs } from '../actions/output';
-import formatDate from '../utils/formatDate';
+import { getIprs } from '../actions/ipr';
 
 const theme = createTheme();
 
@@ -64,6 +64,7 @@ export default function IprCreate() {
   const [quantity, setQuantity] = React.useState(null);
   const [unitPrice, setUnitPrice] = React.useState(null);
   const [UnitTotal, setUnitTotal] = React.useState('');
+  const { iprs } = useSelector(state => state.ipr);
   const { programmes } = useSelector(state => state.programme);
   // const { budgetlines } = useSelector(state => state.budgetline);
   const { outputs } = useSelector(state => state.output);
@@ -72,35 +73,36 @@ export default function IprCreate() {
   const [activityvalue, setActivityValue] = React.useState(null);
   const [budgetlinevalue, setBudtetlineValue] = React.useState(null);
   const [outputfilters, setOutputfilters] = React.useState(null);
-  const [activityfilters, setActivityfilters] = React.useState(null);
   const [budgetlinefilters, setBudgetlinefilters] = React.useState(null);
+  const [IPRNumber, setIPRNumber] = React.useState(null);
  
   const handleProgrammeValueChange = (event) => {
     setProgrammeValue(event.target.value);
     setOutputValue(null);
     setOutputfilters(outputs.filter((output) => output.programme.toString() === event.target.value.toString()));
   }
+
   const handleOutputValueChange = (event) => {
     setOutputValue(event.target.value);
     setActivityValue(null);
     setBudtetlineValue(null);
-    setActivityfilters(outputs.filter((output) => output._id.toString() === event.target.value.toString())[0].activities);
     setBudgetlinefilters(outputs.filter((output) => output._id.toString() === event.target.value.toString())[0].connectedBudgetlines.map((budgetline) => ({
       value: budgetline._id,
       label: budgetline.name
     })));
   }
-  const handleActivityValueChange = (event) => {
-    setActivityValue(event.target.value);
-  }
+
   const handleBudgetlineValueChange = (event) => {
     setBudtetlineValue(event.target.value);
   }
+
   const programmeOptions = programmes.filter((programme) => programme.isRemoved === false)?.map((option) => ({
     value: option._id,
-    label: option.name
+    label: option.name,
   }))
+
   const handleOpen = () => setOpen(true);
+
   const handleClose = () => {
     setOpen(false);
     setQuantity('');
@@ -114,8 +116,6 @@ export default function IprCreate() {
     user
   } = useSelector(state => state.auth);
 
-  var IPRNumber = 'IRP/PROGRAMME-' + formatDate(new Date()) + '-' + Date.now() % 100;
-
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -123,7 +123,7 @@ export default function IprCreate() {
     const iprNo = IPRNumber;
     const dueDate = dueDateValue;
     const requestedBy = user._id;
-    const programme = programmevalue;
+    const programme = programmevalue._id;
     const output = outputvalue;
     const activity = activityvalue;
     const budgetline = budgetlinevalue;
@@ -178,6 +178,7 @@ export default function IprCreate() {
   useEffect(() => {
     dispatch(getOutputs());
     dispatch(getProgrammes());
+    dispatch(getIprs());
     // dispatch(getBudgetLines());
   }, [dispatch]);
 
@@ -186,6 +187,68 @@ export default function IprCreate() {
   //     navigate('/');
   //   }
   // }, [isAuthenticated, navigate])
+
+  useEffect(() => {
+    if (!programmevalue)
+      return;
+
+    var iprNumber = "IPR/";
+    
+    const programmeAcronym = programmes.filter((option) => option._id === programmevalue)[0].acronym;
+    var date = "";
+
+    switch (dateValue.getMonth()) {
+      case 0:
+        date = "/" + dateValue.getFullYear() + "/" + dateValue.getDate() + "01-";
+        break;
+      case 1:
+        date = "/" + dateValue.getFullYear() + "/" + dateValue.getDate() + "02-";
+        break;
+      case 2:
+        date = "/" + dateValue.getFullYear() + "/" + dateValue.getDate() + "03-";
+        break;
+      case 3:
+        date = "/" + dateValue.getFullYear() + "/" + dateValue.getDate() + "04-";
+        break;
+      case 4:
+        date = "/" + dateValue.getFullYear() + "/" + dateValue.getDate() + "05-";
+        break;
+      case 5:
+        date = "/" + dateValue.getFullYear() + "/" + dateValue.getDate() + "06-";
+        break;
+      case 6:
+        date = "/" + dateValue.getFullYear() + "/" + dateValue.getDate() + "07-";
+        break;
+      case 7:
+        date = "/" + dateValue.getFullYear() + "/" + dateValue.getDate() + "08-";
+        break;
+      case 8:
+        date = "/" + dateValue.getFullYear() + "/" + dateValue.getDate() + "09-";
+        break;
+      case 9:
+        date = "/" + dateValue.getFullYear() + "/" + dateValue.getDate() + "10-";
+        break;
+      case 10:
+        date = "/" + dateValue.getFullYear() + "/" + dateValue.getDate() + "11-";
+        break;
+      case 11:
+        date = "/" + dateValue.getFullYear() + "/" + dateValue.getDate() + "12-";
+        break;
+      default:
+        date = "/" + dateValue.getFullYear() + "/" + dateValue.getDate() + "01-";
+        break;
+    }
+    
+    const iprsByProgrammeID = iprs.filter((option) => option.programme._id === programmevalue && option.iprNo.includes(date));
+    var sequantial = iprsByProgrammeID.length + 1;
+    if (sequantial < 10)
+      sequantial = "00" + sequantial;
+    else if (sequantial < 100)
+      sequantial = "0" + sequantial;
+
+    iprNumber = "IPR/" + programmeAcronym + date + sequantial;
+    setIPRNumber(iprNumber);
+  }, [programmevalue, dateValue, iprs, programmes]);
 
   return (
     <ThemeProvider theme={theme}>

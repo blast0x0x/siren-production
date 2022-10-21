@@ -222,7 +222,7 @@ export default function Dashboard() {
                         <TableCell align="center"><b>Programme</b></TableCell>
                         <TableCell align="center"><b>Output</b></TableCell>
                         {/* <TableCell align="center"><b>Activity</b></TableCell> */}
-                        <TableCell align="center"><b>Budtet Line</b></TableCell>
+                        <TableCell align="center"><b>Budget Line</b></TableCell>
                         <TableCell align="center"><b>Stage</b></TableCell>
                         <TableCell align="center"><b>Notes</b></TableCell>
                         <TableCell align="center"><b>Edit</b></TableCell>
@@ -293,7 +293,7 @@ export default function Dashboard() {
                         <TableCell align="center"><b>Programme</b></TableCell>
                         <TableCell align="center"><b>Output</b></TableCell>
                         {/* <TableCell align="center"><b>Activity</b></TableCell> */}
-                        <TableCell align="center"><b>Budtet Line</b></TableCell>
+                        <TableCell align="center"><b>Budget Line</b></TableCell>
                         <TableCell align="center"><b>Allocation Date</b></TableCell>
                         <TableCell align="center"><b>Allocate</b></TableCell>
                         <TableCell align="center"><b>Status</b></TableCell>
@@ -491,7 +491,7 @@ export default function Dashboard() {
                         <TableCell align="center"><b>Programme</b></TableCell>
                         <TableCell align="center"><b>Output</b></TableCell>
                         {/* <TableCell align="center"><b>Activity</b></TableCell> */}
-                        <TableCell align="center"><b>Budtet Line</b></TableCell>
+                        <TableCell align="center"><b>Budget Line</b></TableCell>
                         <TableCell align="center"><b>Approve</b></TableCell>
                         <TableCell align="center"><b>Decline</b></TableCell>
                         <TableCell align="center"><b>Status</b></TableCell>
@@ -550,7 +550,7 @@ export default function Dashboard() {
                         <TableCell align="center"><b>Programme</b></TableCell>
                         <TableCell align="center"><b>Output</b></TableCell>
                         {/* <TableCell align="center"><b>Activity</b></TableCell> */}
-                        <TableCell align="center"><b>Budtet Line</b></TableCell>
+                        <TableCell align="center"><b>Budget Line</b></TableCell>
                         <TableCell align="center"><b>RFQ Issuance Date</b></TableCell>
                         {/* <TableCell align="center"><b>RFQ End Date</b></TableCell> */}
                         {/* <TableCell align="center" colSpan={3}><b>Actions</b></TableCell> */}
@@ -599,7 +599,7 @@ export default function Dashboard() {
                         <TableCell align="center"><b>Programme</b></TableCell>
                         <TableCell align="center"><b>Output</b></TableCell>
                         {/* <TableCell align="center"><b>Activity</b></TableCell> */}
-                        <TableCell align="center"><b>Budtet Line</b></TableCell>
+                        <TableCell align="center"><b>Budget Line</b></TableCell>
                         <TableCell align="center"><b>Stage</b></TableCell>
                         <TableCell align="center"><b>Approve</b></TableCell>
                         <TableCell align="center"><b>Status</b></TableCell>
