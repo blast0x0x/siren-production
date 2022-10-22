@@ -380,6 +380,7 @@ export default function IprCreate() {
               variant="contained"
               endIcon={<AddIcon />}
               sx={{ mt: 3 }}
+              style={{ color: '#ffffff', backgroundColor: '#d20000' }}
               onClick={handleOpen}
             >
               Add
@@ -442,10 +443,11 @@ export default function IprCreate() {
                 type="submit"
                 variant="contained"
                 sx={{ mx: 1, px: 4 }}
+                style={{ color: '#ffffff', backgroundColor: '#d20000' }}
               >
                 Submit
               </Button>
-              <Button component={Link} sx={{ mx: 1, px: 4 }} to="/dashboard" variant="outlined" color="primary">
+              <Button component={Link} sx={{ mx: 1, px: 4 }} style={{ color: '#d20000', borderColor: '#d20000' }} to="/dashboard" variant="outlined">
                 Cancel
               </Button>
             </Box>
@@ -537,6 +539,7 @@ export default function IprCreate() {
                   fullWidth
                   variant="contained"
                   sx={{ mt: 3, mb: 2 }}
+                  style={{ color: '#ffffff', backgroundColor: '#d20000' }}
                 >
                   Insert
                 </Button>

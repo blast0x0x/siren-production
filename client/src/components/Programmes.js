@@ -105,7 +105,7 @@ export default function Programmes() {
               to="/programme/create"
               variant="contained"
               endIcon={<AddIcon />}
-              color="primary"
+              style={{ color: '#ffffff', backgroundColor: '#d20000' }}
             >
               Add Programme
             </Button>
@@ -157,7 +157,7 @@ export default function Programmes() {
                           <Button
                             onClick={() => editProgramme(programme._id)}
                             variant="text"
-                            color="primary"
+                            style={{ color: '#d20000' }}
                             sx={{ pr: 0 }}
                           >
                             <EditIcon />
@@ -169,6 +169,7 @@ export default function Programmes() {
                             color="primary"
                             onClick={() => deleteProgramme(programme._id)}
                             sx={{ pl: 0 }}
+                            style={{ color: '#d20000' }}
                           >
                             <DeleteIcon />
                           </Button>
@@ -185,7 +186,6 @@ export default function Programmes() {
                 display: 'flex',
                 justifyContent: 'center'
               }}
-              color="primary"
               count={programmesPages}
               page={programmesPage}
               onChange={handleProgrammesPageChange}

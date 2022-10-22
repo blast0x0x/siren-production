@@ -185,6 +185,7 @@ export default function IPRRow(props) {
         <TableCell align="center">{row.budgetline.name}</TableCell>
         <TableCell align="center">
           <Switch
+            style={{ color: '#d20000' }}
             checked={row.approvalStage == 2}
             onChange={(event) => handleCheckApprovalChange(row._id, event)}
             inputProps={{ 'aria-label': 'controlled' }}
@@ -192,6 +193,7 @@ export default function IPRRow(props) {
         </TableCell>
         <TableCell align="center">
           <Switch
+            style={{ accentColor: '#d20000', color: '#d20000' }}
             checked={row.approvalStage == 1}
             onChange={(event) => handleCheckDeclineChange(row._id, event)}
             inputProps={{ 'aria-label': 'controlled' }}
@@ -208,16 +210,16 @@ export default function IPRRow(props) {
             color="primary"
             sx={{ pr: 0 }}
           >
-            <EditIcon />
+            <EditIcon style={{ color: '#d20000' }}/>
           </Button>
         </TableCell>
         <TableCell align="center" sx={{ pl: 0 }}>
           <Button
             disabled={!(row.approvalStage === 4 || (row.approvalStage === 3 && parseInt(row.budgetline.initialAmount) < 10000) || (row.approvalStage === 2 && parseInt(row.budgetline.initialAmount) < 5000))}
             variant="text"
-            color="primary"
             onClick={exportPDF}
             sx={{ pl: 0 }}
+            style={{color: (!(row.approvalStage === 4 || (row.approvalStage === 3 && parseInt(row.budgetline.initialAmount) < 10000) || (row.approvalStage === 2 && parseInt(row.budgetline.initialAmount) < 5000))) ? '#b1bbbd' : '#d20000'}}
           >
             <DownloadIcon />
           </Button>

@@ -139,7 +139,7 @@ export default function BudgetLines() {
                 to="/budgetline/create"
                 variant="contained"
                 endIcon={<AddIcon />}
-                color="primary"
+                style={{color: '#ffffff', backgroundColor: '#d20000'}}
               >
                 Add Budget Line
               </Button>
@@ -200,6 +200,7 @@ export default function BudgetLines() {
                           variant="text"
                           color="primary"
                           sx={{ pr: 0 }}
+                          style={{ color: '#d20000' }}
                         >
                           <EditIcon />
                         </Button>
@@ -210,6 +211,7 @@ export default function BudgetLines() {
                           color="primary"
                           onClick={() => deleteBudgetLine(budgetline._id)}
                           sx={{ pl: 0 }}
+                          style={{ color: '#d20000' }}
                         >
                           <DeleteIcon />
                         </Button>
@@ -225,7 +227,6 @@ export default function BudgetLines() {
                 display: 'flex',
                 justifyContent: 'center'
               }}
-              color="primary"
               count={budgetlinesPages}
               page={budgetlinesPage}
               onChange={handleBudgetLinesPageChange}

@@ -138,7 +138,7 @@ export default function Users() {
                 to="/user/create"
                 variant="contained"
                 endIcon={<AddIcon />}
-                color="primary"
+                style={{ color: '#ffffff', backgroundColor: '#d20000' }}
               >
                 Add User
               </Button>
@@ -231,6 +231,7 @@ export default function Users() {
                           variant="text"
                           color="primary"
                           sx={{ pr: 0 }}
+                          style={{ color: '#d20000' }}
                         >
                           <EditIcon />
                         </Button>
@@ -241,6 +242,7 @@ export default function Users() {
                           color="primary"
                           onClick={() => deleteUser(user._id)}
                           sx={{ pl: 0 }}
+                          style={{ color: '#d20000' }}
                         >
                           <DeleteIcon />
                         </Button>
@@ -256,7 +258,6 @@ export default function Users() {
                 display: 'flex',
                 justifyContent: 'center'
               }}
-              color="primary"
               count={usersPages}
               page={usersPage}
               onChange={handleUsersPageChange}

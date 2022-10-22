@@ -211,7 +211,7 @@ export default function Dashboard() {
                 </Box>
                 <TableContainer component={Paper}>
                   <Table aria-label="collapsible table">
-                    <TableHead sx={{ background: '#c4c4c4' }}>
+                    <TableHead sx={{ background: '#d20000', WebkitTextFillColor: '#ffffff' }}>
                       <TableRow>
                         <TableCell />
                         <TableCell align="center"><b>IPR No</b></TableCell>
@@ -244,7 +244,6 @@ export default function Dashboard() {
                       display: 'flex',
                       justifyContent: 'center'
                     }}
-                    color="primary"
                     count={staffPages}
                     page={staffPage}
                     onChange={handleStaffPageChange}
@@ -284,7 +283,7 @@ export default function Dashboard() {
                 </Box>
                 <TableContainer component={Paper}>
                   <Table aria-label="collapsible table">
-                    <TableHead sx={{ background: '#c4c4c4' }}>
+                    <TableHead sx={{ background: '#d20000', WebkitTextFillColor: '#ffffff' }}>
                       <TableRow>
                         <TableCell />
                         <TableCell align="center"><b>IPR No</b></TableCell>
@@ -314,9 +313,8 @@ export default function Dashboard() {
                     sx={{
                       my: 1,
                       display: 'flex',
-                      justifyContent: 'center'
+                      justifyContent: 'center',
                     }}
-                    color="primary"
                     count={financePages}
                     page={financePage}
                     onChange={handleFinancePageChange}
@@ -333,6 +331,7 @@ export default function Dashboard() {
                     mt: 4,
                     mb: 1
                   }}
+                  style={{ borderColor: '#d20000', color: '#d20000' }}
                   icon={<PersonIcon />}
                   label="Users:"
                   color="primary"
@@ -346,7 +345,7 @@ export default function Dashboard() {
                     sx={{ minWidth: 650 }}
                     aria-label="simple table"
                   >
-                    <TableHead sx={{ background: '#c4c4c4' }}>
+                    <TableHead sx={{ background: '#d20000', WebkitTextFillColor: '#ffffff' }}>
                       <TableRow>
                         <TableCell align="center"><b>No.</b></TableCell>
                         <TableCell align="left"><b>User Name</b></TableCell>
@@ -383,6 +382,7 @@ export default function Dashboard() {
                             <TableCell align="right">
                               <Switch
                                 checked={user.approvalState === 2}
+                                style={{ borderColor: '#d20000', color: '#d20000' }}
                                 onChange={(event) => handleCheckChange(user._id, event)}
                                 inputProps={{ 'aria-label': 'controlled' }}
                               />
@@ -419,7 +419,6 @@ export default function Dashboard() {
                       display: 'flex',
                       justifyContent: 'center'
                     }}
-                    color="primary"
                     count={usersPages}
                     page={usersPage}
                     onChange={handleUsersPageChange}
@@ -439,6 +438,7 @@ export default function Dashboard() {
                       fontSize: '20px',
                       width: '98px',
                     }}
+                    style={{ borderColor: '#d20000', color: '#d20000' }}
                     icon={<ArticleIcon />}
                     label="IPRs:"
                     color="primary"
@@ -474,14 +474,14 @@ export default function Dashboard() {
                     to="/ipr/create"
                     variant="contained"
                     endIcon={<AddIcon />}
-                    color="primary"
+                    style={{ background: '#d20000' }}
                   >
                     Add IPR
                   </Button>
                 </Box>
                 <TableContainer component={Paper}>
                   <Table aria-label="collapsible table">
-                    <TableHead sx={{ background: '#c4c4c4' }}>
+                    <TableHead sx={{ background: '#d20000', WebkitTextFillColor: '#ffffff' }}>
                       <TableRow>
                         <TableCell />
                         <TableCell align="center"><b>IPR No</b></TableCell>
@@ -517,7 +517,6 @@ export default function Dashboard() {
                       display: 'flex',
                       justifyContent: 'center'
                     }}
-                    color="primary"
                     count={supportPages}
                     page={supportPage}
                     onChange={handleSupportPageChange}
@@ -541,7 +540,7 @@ export default function Dashboard() {
                 />
                 <TableContainer component={Paper}>
                   <Table aria-label="collapsible table">
-                    <TableHead sx={{ background: '#c4c4c4' }}>
+                    <TableHead sx={{ background: '#d20000', WebkitTextFillColor: '#ffffff' }}>
                       <TableRow>
                         <TableCell />
                         <TableCell align="center"><b>No</b></TableCell>
@@ -589,7 +588,7 @@ export default function Dashboard() {
                 />
                 <TableContainer component={Paper}>
                   <Table aria-label="collapsible table">
-                    <TableHead sx={{ background: '#c4c4c4' }}>
+                    <TableHead sx={{ background: '#d20000', WebkitTextFillColor: '#ffffff' }}>
                       <TableRow>
                         <TableCell />
                         <TableCell align="center"><b>No</b></TableCell>

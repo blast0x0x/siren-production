@@ -378,6 +378,7 @@ export default function IprEdit() {
                             <Button
                               type="button"
                               variant="text"
+                              style={{ color: '#d20000' }}
                               onClick={() => handleOpen(index)}
                             >
                               <EditIcon />
@@ -417,10 +418,17 @@ export default function IprEdit() {
                     type="submit"
                     variant="contained"
                     sx={{ mx: 1, px: 4 }}
+                    style={{ color: '#ffffff', backgroundColor: '#d20000' }}
                   >
                     Update
                   </Button>
-                  <Button component={Link} sx={{ mx: 1, px: 4 }} to="/dashboard" variant="outlined" color="primary">
+                  <Button 
+                    component={Link}
+                    sx={{ mx: 1, px: 4 }}
+                    to="/dashboard"
+                    variant="outlined"
+                    style={{ color: '#d20000', borderColor: '#d20000'}}
+                  >
                     Cancel
                   </Button>
                 </Box>
@@ -508,6 +516,7 @@ export default function IprEdit() {
                     fullWidth
                     variant="contained"
                     sx={{ mt: 3, mb: 2 }}
+                    style={{ color: '#ffffff', backgroundColor: '#d20000' }}
                   >
                     Update
                   </Button>

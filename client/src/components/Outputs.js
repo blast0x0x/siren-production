@@ -383,6 +383,7 @@ export default function Outputs() {
                             padding: 0,
                             minWidth: '28px'
                           }}
+                          style={{ color: '#d20000' }}
                         >
                           <AddIcon />
                         </Button>
@@ -396,6 +397,7 @@ export default function Outputs() {
                             padding: 0,
                             minWidth: '28px'
                           }}
+                          style={{ color: '#d20000' }}
                         >
                           <EditIcon />
                         </Button>
@@ -409,6 +411,7 @@ export default function Outputs() {
                             padding: 0,
                             minWidth: '28px'
                           }}
+                          style={{ color: '#d20000' }}
                         >
                           <DeleteIcon />
                         </Button>
@@ -428,12 +431,12 @@ export default function Outputs() {
                           <Tooltip title="Edit Activity">
                             <Button
                               variant="text"
-                              color="primary"
                               onClick={() => openActivityEditModal(output._id, activity._id, activity.activityName)}
                               sx={{
                                 padding: 0,
                                 minWidth: '28px'
                               }}
+                              style={{ color: '#d20000' }}
                             >
                               <EditIcon />
                             </Button>
@@ -442,11 +445,11 @@ export default function Outputs() {
                             <Button
                               onClick={() => removeActivity(output._id, activity._id)}
                               variant="text"
-                              color="primary"
                               sx={{
                                 padding: 0,
                                 minWidth: '28px'
                               }}
+                              style={{ color: '#d20000' }}
                             >
                               <DeleteIcon />
                             </Button>
@@ -473,7 +476,7 @@ export default function Outputs() {
               onClick={openOutputCreateModal}
               variant="contained"
               endIcon={<AddIcon />}
-              color="primary"
+              style={{ color: '#ffffff', backgroundColor: '#d20000' }}
             >
               Add Output
             </Button>
@@ -547,6 +550,7 @@ export default function Outputs() {
                   fullWidth
                   variant="contained"
                   sx={{ mt: 3, mb: 2 }}
+                  style={{ color: '#ffffff', backgroundColor: '#d20000' }}
                 >
                   Insert
                 </Button>
@@ -622,6 +626,7 @@ export default function Outputs() {
                   fullWidth
                   variant="contained"
                   sx={{ mt: 3, mb: 2 }}
+                  style={{ color: '#ffffff', backgroundColor: '#d20000' }}
                 >
                   Update
                 </Button>
@@ -657,6 +662,7 @@ export default function Outputs() {
                   fullWidth
                   variant="contained"
                   sx={{ mt: 3, mb: 2 }}
+                  style={{ color: '#ffffff', backgroundColor: '#d20000' }}
                 >
                   Create
                 </Button>
@@ -692,6 +698,7 @@ export default function Outputs() {
                   fullWidth
                   variant="contained"
                   sx={{ mt: 3, mb: 2 }}
+                  style={{ color: '#ffffff', backgroundColor: '#d20000' }}
                 >
                   Update
                 </Button>

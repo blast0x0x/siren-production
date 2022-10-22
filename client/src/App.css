@@ -87,7 +87,7 @@
 }
 
 .signinbutton {
-  background: #1976d2;
+  background: #d20000;
   color: white;
   padding: 16px 20px;
   font-size: 20px;
@@ -95,19 +95,19 @@
 
 .signupbutton {
   background: transform;
-  color: #1976d2;
-  border: 1px solid #1976d2;
+  color: #d20000;
+  border: 1px solid #d20000;
   padding: 16px;
   font-size: 20px;
 }
 
 .signinbutton:hover {
-  background: #69a1d9;
+  background: #f6abab;
 }
 
 .signupbutton:hover {
   background: white;
-  color: #1976d2;
+  color: #d20000;
 }
 
 .mui-alert {
