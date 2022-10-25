@@ -132,7 +132,6 @@ export default function Outputs() {
     for (let i = 0; i < budgetlinesFiltered.length; i++)
       nameIdPairs[budgetlinesFiltered[i].name] = budgetlinesFiltered[i]._id;
     const budgetLineIds = value.map((name) => nameIdPairs[name]).filter((option) => option !== undefined);
-    console.log("eagle: budgetLineIds.length2=", budgetLineIds);
     setConnectedBudgetLineIds(budgetLineIds);
   };
 
@@ -159,7 +158,10 @@ export default function Outputs() {
     for (let i = 0; i < budgetlinesFilteredByProgramme.length; i++)
       idNamePairs[budgetlinesFilteredByProgramme[i]._id] = budgetlinesFilteredByProgramme[i].name;
     
+    console.log("eagle: output.connectedBudgetlines=", output.connectedBudgetlines);
+    console.log("eagle: idNamePairs=", idNamePairs);
     const budgetLineNames = output.connectedBudgetlines.map((budgetline) => idNamePairs[budgetline._id]);
+    console.log("eagle: budgetLineNames=", budgetLineNames);
     
     setConnectedBudgetLineNames(budgetLineNames);
     setOpenOutputEdit(true);
