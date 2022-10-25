@@ -131,7 +131,7 @@ export default function Outputs() {
     let nameIdPairs = {};
     for (let i = 0; i < budgetlinesFiltered.length; i++)
       nameIdPairs[budgetlinesFiltered[i].name] = budgetlinesFiltered[i]._id;
-    const budgetLineIds = value.map((name) => nameIdPairs[name]).filter((option) => option !== null);
+    const budgetLineIds = value.map((name) => nameIdPairs[name]).filter((option) => option !== undefined);
     console.log("eagle: budgetLineIds.length2=", budgetLineIds);
     setConnectedBudgetLineIds(budgetLineIds);
   };
