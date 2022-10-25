@@ -129,9 +129,9 @@ export default function Outputs() {
       typeof value === 'string' ? value.split(',') : value,
     );
     let nameIdPairs = {};
-    for (let i = 0; i < budgetlinesFiltered.length; i++)
-      nameIdPairs[budgetlinesFiltered[i].name] = budgetlinesFiltered[i]._id;
-    const budgetLineIds = value.map((name) => nameIdPairs[name]).filter((option) => option !== undefined);
+    for (let i = 0; i < budgetlinefilters.length; i++)
+      nameIdPairs[budgetlinefilters[i].name] = budgetlinefilters[i]._id;
+    const budgetLineIds = value.map((name) => nameIdPairs[name]);
     setConnectedBudgetLineIds(budgetLineIds);
   };
 
