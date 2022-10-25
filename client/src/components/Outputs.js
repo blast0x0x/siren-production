@@ -158,10 +158,7 @@ export default function Outputs() {
     for (let i = 0; i < budgetlinesFilteredByProgramme.length; i++)
       idNamePairs[budgetlinesFilteredByProgramme[i]._id] = budgetlinesFilteredByProgramme[i].name;
     
-    console.log("eagle: output.connectedBudgetlines=", output.connectedBudgetlines);
-    console.log("eagle: idNamePairs=", idNamePairs);
     const budgetLineNames = output.connectedBudgetlines.map((budgetline) => idNamePairs[budgetline._id]);
-    console.log("eagle: budgetLineNames=", budgetLineNames);
     
     setConnectedBudgetLineNames(budgetLineNames);
     setOpenOutputEdit(true);

@@ -179,6 +179,7 @@ const Navbar = () => {
                     px: '8px',
                     mr: '8px'
                   }}
+                  style={{ color: '#ffffff', borderColor: '#ffffff', backgroundColor: '#d20000' }}
                   >
                     Dashboard
                 </Button>
@@ -192,6 +193,7 @@ const Navbar = () => {
                     px: '8px',
                     mr: '8px'
                   }}
+                  style={{ color: '#ffffff', borderColor: '#ffffff', backgroundColor: '#d20000' }}
                   >
                     Programmes
                 </Button>
@@ -205,6 +207,7 @@ const Navbar = () => {
                     px: '8px',
                     mr: '8px'
                   }}
+                  style={{ color: '#ffffff', borderColor: '#ffffff', backgroundColor: '#d20000' }}
                 >
                   Budget Lines
                 </Button>
@@ -218,6 +221,7 @@ const Navbar = () => {
                     px: '8px',
                     mr: '8px'
                   }}
+                  style={{ color: '#ffffff', borderColor: '#ffffff', backgroundColor: '#d20000' }}
                   >
                   Outputs
                 </Button>
@@ -232,6 +236,7 @@ const Navbar = () => {
                     px: '8px',
                     mr: '8px'
                   }}
+                  style={{ color: '#ffffff', borderColor: '#ffffff', backgroundColor: '#d20000' }}
                   >
                     Users
                   </Button>
