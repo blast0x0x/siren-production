@@ -24,7 +24,7 @@ export default function IPRStaffRow(props) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [open, setOpen] = React.useState(false);
-  const stages = ['Finance', 'Support', 'Procurement', 'CEO', 'Finalized'];
+  const stages = ['Support', 'Finance', 'Procurement', 'CEO', 'Finalized'];
 
   const total = (items) => {
     let total = 0;
